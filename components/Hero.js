@@ -23,11 +23,19 @@ export default function Hero() {
               2025 Updated
             </div>
             
+            {/* Secondary badge */}
+            <div className="absolute -top-2 -right-6 z-20 badge badge-secondary badge-md gap-2 p-3 shadow-lg">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+              </svg>
+              7 Courses
+            </div>
+            
             {/* Main image with enhanced styling */}
             <div className="relative p-6 bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-base-200">
               <Image 
-                src="/physics-hero.svg" 
-                alt="AP Physics concepts visualization"
+                src="/stem-hero.svg" 
+                alt="STEM education visualization showing math and physics concepts"
                 width={500}
                 height={500}
                 className="max-w-sm w-full h-auto rounded-2xl transform hover:scale-105 transition-transform duration-300"
@@ -43,10 +51,16 @@ export default function Hero() {
                     </svg>
                   </div>
                   <div>
-                    <div className="text-sm font-bold text-success">97%</div>
+                    <div className="text-sm font-bold text-success">95%</div>
                     <div className="text-xs text-base-content/70">Pass Rate</div>
                   </div>
                 </div>
+              </div>
+
+              {/* Subject indicator badges */}
+              <div className="absolute -bottom-3 -left-3 flex gap-2">
+                <div className="badge badge-primary badge-sm">Math</div>
+                <div className="badge badge-secondary badge-sm">Physics</div>
               </div>
             </div>
           </div>
@@ -59,24 +73,41 @@ export default function Hero() {
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
             </svg>
-            AP Physics Excellence Program
+            STEM Excellence Program
           </div>
 
           {/* Main heading */}
           <h1 className="text-4xl lg:text-6xl font-bold text-base-content leading-tight mb-6">
-            Master the{' '}
+            Master{' '}
             <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              AP Physics
+              Math & Physics
             </span>{' '}
-            Exam with Confidence
+            with Confidence
           </h1>
 
           {/* Subtitle */}
           <p className="text-lg lg:text-xl text-base-content/80 leading-relaxed mb-8 max-w-2xl">
-            Expert-led preparation for the updated 2025 AP Physics curriculum. 
-            Our comprehensive approach covers all exam units including the latest additions, 
-            with personalized feedback to maximize your success.
+            Expert-led preparation across{' '}
+            <span className="font-semibold text-primary">7 comprehensive STEM courses</span>.
+            From foundational precalculus to advanced calculus-based physics, 
+            our personalized approach maximizes your AP exam success.
           </p>
+
+          {/* Course highlights */}
+          <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-6">
+            <div className="flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-2 rounded-full border border-blue-200">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+              </svg>
+              <span className="text-sm font-medium">3 Math Courses</span>
+            </div>
+            <div className="flex items-center gap-2 bg-green-50 text-green-700 px-3 py-2 rounded-full border border-green-200">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+              </svg>
+              <span className="text-sm font-medium">4 Physics Courses</span>
+            </div>
+          </div>
 
           {/* Features list */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
@@ -94,7 +125,7 @@ export default function Hero() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
               </div>
-              <span className="text-sm font-medium">Expert Instructors</span>
+              <span className="text-sm font-medium">Expert STEM Instructors</span>
             </div>
             <div className="flex items-center gap-3 p-3 bg-white/60 rounded-xl">
               <div className="w-8 h-8 bg-accent/20 rounded-lg flex items-center justify-center">
@@ -107,17 +138,17 @@ export default function Hero() {
             <div className="flex items-center gap-3 p-3 bg-white/60 rounded-xl">
               <div className="w-8 h-8 bg-info/20 rounded-lg flex items-center justify-center">
                 <svg className="w-4 h-4 text-info" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
               </div>
-              <span className="text-sm font-medium">Flexible Scheduling</span>
+              <span className="text-sm font-medium">Complete Learning Path</span>
             </div>
           </div>
 
           {/* Action buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <Link 
-              href="/tutoring/individual" 
+              href="/booking/individual" 
               className="btn btn-primary btn-lg gap-3 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -128,13 +159,14 @@ export default function Hero() {
             </Link>
             
             <Link 
-              href="/tutoring/group" 
+              href="/courses" 
               className="btn btn-outline btn-secondary btn-lg gap-3 hover:shadow-lg transform hover:scale-105 transition-all duration-200"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
-              Join Group Classes
+              Explore All Courses
+              <div className="badge badge-secondary badge-sm">Math + Physics</div>
             </Link>
           </div>
 
@@ -145,6 +177,7 @@ export default function Hero() {
                 <div className="w-6 h-6 bg-primary rounded-full border-2 border-white"></div>
                 <div className="w-6 h-6 bg-secondary rounded-full border-2 border-white"></div>
                 <div className="w-6 h-6 bg-accent rounded-full border-2 border-white"></div>
+                <div className="w-6 h-6 bg-info rounded-full border-2 border-white"></div>
               </div>
               <span>5000+ successful students</span>
             </div>
@@ -157,7 +190,14 @@ export default function Hero() {
                   </svg>
                 ))}
               </div>
-              <span>4.8/5 rating</span>
+              <span>4.9/5 rating</span>
+            </div>
+
+            <div className="flex items-center gap-2 text-sm text-base-content/70">
+              <svg className="w-4 h-4 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              <span>Money-back guarantee</span>
             </div>
           </div>
         </div>

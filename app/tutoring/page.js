@@ -8,29 +8,30 @@ export default function Tutoring() {
       id: "individual",
       title: "One-on-One Tutoring",
       price: 70,
-      description: "Personalized instruction tailored to your specific needs and learning style, with flexible scheduling and focused attention.",
+      description: "Personalized instruction tailored to your specific needs and learning style across all STEM subjects, with flexible scheduling and focused attention.",
       features: [
         "Private 55-minute Zoom sessions",
         "Personalized curriculum pacing",
-        "Homework assistance",
+        "Multi-subject expertise (Math & Physics)",
+        "Homework assistance across all courses",
         "Direct access to instructor",
         "Flexible scheduling",
         "Detailed progress reports",
-        "Real-time question answering",
-        "Custom practice problems"
+        "Real-time question answering"
       ],
       includes: [
         "Initial assessment to identify strengths and areas for improvement",
         "Digital course materials with personalized annotations",
         "Recording of sessions for review",
         "Email support between sessions",
-        "Bi-weekly progress reports"
+        "Bi-weekly progress reports across all enrolled subjects"
       ],
       idealFor: [
         "Students seeking personalized attention",
         "Those with irregular schedules",
         "Students who prefer to learn at their own pace",
-        "Those preparing for upcoming AP exams",
+        "Those preparing for multiple AP exams",
+        "Students needing help across different STEM subjects",
         "English language learners who benefit from adaptive instruction"
       ],
       primary: true,
@@ -40,12 +41,12 @@ export default function Tutoring() {
       id: "group",
       title: "Small Group Classes",
       price: 30,
-      description: "Collaborative learning environment with peer interaction and structured curriculum progression at an affordable price point.",
+      description: "Collaborative learning environment with subject-specific peer interaction and structured curriculum progression at an affordable price point.",
       features: [
         "Small groups (4-6 students)",
         "55-minute Zoom sessions",
-        "Structured curriculum",
-        "Collaborative learning",
+        "Subject-specific structured curriculum",
+        "Collaborative learning within each course",
         "Affordable rates",
         "Comprehensive unit exams",
         "Peer discussion opportunities",
@@ -53,8 +54,8 @@ export default function Tutoring() {
       ],
       includes: [
         "Fixed weekly schedule for consistent learning",
-        "Digital course materials",
-        "Access to group chat for questions",
+        "Subject-specific digital course materials",
+        "Access to course-specific group chat for questions",
         "Monthly progress assessments",
         "Group review sessions before major exams"
       ],
@@ -63,10 +64,35 @@ export default function Tutoring() {
         "Those seeking an affordable option",
         "Students who benefit from peer discussion",
         "Those who prefer structured weekly schedules",
-        "Students wanting to compare approaches with peers"
+        "Students wanting to compare approaches with peers",
+        "Students focusing on one specific AP course"
       ],
       primary: false,
       cta: "Join Group Class"
+    }
+  ];
+
+  // Subject areas for the approach section
+  const subjectApproaches = [
+    {
+      subject: "Mathematics",
+      courses: ["AP Precalculus", "AP Calculus AB", "AP Calculus BC"],
+      icon: (
+        <svg className="h-8 w-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+        </svg>
+      ),
+      description: "Building strong foundations from function analysis through advanced calculus concepts."
+    },
+    {
+      subject: "Physics", 
+      courses: ["AP Physics 1", "AP Physics 2", "AP Physics C"],
+      icon: (
+        <svg className="h-8 w-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+        </svg>
+      ),
+      description: "From algebra-based mechanics to calculus-based electromagnetism and beyond."
     }
   ];
 
@@ -74,19 +100,27 @@ export default function Tutoring() {
   const faqItems = [
     {
       question: "How are tutoring sessions conducted?",
-      answer: "All tutoring sessions are conducted via Zoom with interactive features including shared digital whiteboard, screen sharing, and collaborative documents. I use a variety of digital tools to create an engaging virtual classroom experience that rivals in-person instruction."
+      answer: "All tutoring sessions are conducted via Zoom with interactive features including shared digital whiteboard, screen sharing, and collaborative documents. I use a variety of digital tools to create an engaging virtual classroom experience that rivals in-person instruction across all Math and Physics subjects."
+    },
+    {
+      question: "Can you help with multiple AP courses simultaneously?",
+      answer: "Absolutely! Many students work with me across multiple subjects - for example, taking AP Calculus AB while preparing for AP Physics 1, or advancing from AP Physics 1 to AP Physics C: Mechanics. I can coordinate instruction across subjects to reinforce mathematical concepts in physics applications."
     },
     {
       question: "What is your cancellation policy?",
       answer: "Individual sessions can be rescheduled with 24 hours notice. Cancellations with less than 24 hours notice or missed sessions will be charged at the full session rate. For group classes, missed classes cannot be refunded but recordings are available for review."
     },
     {
+      question: "How do you differentiate instruction between Math and Physics courses?",
+      answer: "Each subject requires a tailored approach. Math courses focus on building computational fluency and conceptual understanding of functions and calculus. Physics courses emphasize conceptual understanding, problem-solving strategies, and connecting mathematical tools to physical phenomena. I adjust my teaching methods based on the specific demands of each AP course."
+    },
+    {
       question: "Do you assign homework between sessions?",
-      answer: "Yes, appropriate practice is essential for mastering physics concepts. I assign targeted homework based on each student's needs, typically requiring 1-2 hours between sessions. One-on-one students receive personalized assignments, while group class students follow a standard curriculum with some flexibility."
+      answer: "Yes, appropriate practice is essential for mastering STEM concepts. I assign targeted homework based on each student's needs and the specific course requirements, typically requiring 1-2 hours between sessions. One-on-one students receive personalized assignments, while group class students follow a structured curriculum with some flexibility."
     },
     {
       question: "Can I switch between individual and group tutoring?",
-      answer: "Yes, you can switch between formats depending on your needs and budget. Some students combine both approaches—using group sessions for general instruction and occasional one-on-one sessions for targeted help with challenging topics."
+      answer: "Yes, you can switch between formats depending on your needs and budget. Some students combine both approaches—using group sessions for general instruction and occasional one-on-one sessions for targeted help with challenging topics or exam preparation across multiple subjects."
     },
     {
       question: "How do payments work?",
@@ -101,10 +135,29 @@ export default function Tutoring() {
         <div className="container mx-auto max-w-6xl px-6">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="lg:w-1/2">
-              <h1 className="text-4xl lg:text-5xl font-bold mb-6">Personalized AP Physics Tutoring</h1>
+              <div className="badge badge-primary mb-4">7 STEM Courses Available</div>
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6">Expert Math & Physics Exam Tutoring</h1>
               <p className="text-lg mb-6">
-                Tailored instruction to help you master physics concepts, improve your problem-solving skills, and achieve excellence on the AP Physics 1 exam.
+                Comprehensive instruction across all our Math and Physics courses. From foundational precalculus to advanced calculus-based physics, 
+                get personalized support to excel on your AP exams.
               </p>
+              
+              {/* Subject badges */}
+              <div className="flex flex-wrap gap-3 mb-6">
+                <div className="flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-2 rounded-full border border-blue-200">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                  <span className="text-sm font-medium">Mathematics</span>
+                </div>
+                <div className="flex items-center gap-2 bg-green-50 text-green-700 px-3 py-2 rounded-full border border-green-200">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                  </svg>
+                  <span className="text-sm font-medium">Physics</span>
+                </div>
+              </div>
+
               <div className="flex gap-4 flex-wrap">
                 <Link href="#compare" className="btn btn-primary">Compare Options</Link>
                 <Link href="/booking" className="btn btn-outline">Schedule Now</Link>
@@ -113,8 +166,8 @@ export default function Tutoring() {
             <div className="lg:w-1/2 flex justify-center">
               <div className="relative w-full h-80">
                 <Image 
-                  src="/tutoring-hero.svg" 
-                  alt="Online tutoring illustration" 
+                  src="/stem-tutoring-hero.svg" 
+                  alt="Online STEM tutoring illustration showing math and physics concepts" 
                   fill
                   className="object-contain"
                 />
@@ -124,13 +177,56 @@ export default function Tutoring() {
         </div>
       </section>
 
-      {/* My Tutoring Approach */}
+      {/* Subject-Specific Approaches */}
       <section className="py-16 bg-base-200">
         <div className="container mx-auto max-w-6xl px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold">My Tutoring Approach</h2>
+            <h2 className="text-3xl font-bold">Subject-Specific Expertise</h2>
             <p className="mt-4 text-lg max-w-3xl mx-auto">
-              A proven methodology that combines conceptual understanding with strategic problem-solving techniques.
+              Specialized teaching approaches tailored to the unique demands of Math and Physics AP courses.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            {subjectApproaches.map((subject, index) => (
+              <div key={index} className="card bg-base-100 shadow-lg border-l-4 border-primary">
+                <div className="card-body">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                      {subject.icon}
+                    </div>
+                    <div>
+                      <h3 className="card-title">{subject.subject}</h3>
+                      <p className="text-sm text-base-content/70">{subject.courses.length} AP Courses</p>
+                    </div>
+                  </div>
+                  
+                  <p className="mb-4">{subject.description}</p>
+                  
+                  <div className="space-y-2">
+                    {subject.courses.map((course, i) => (
+                      <div key={i} className="flex items-center gap-2">
+                        <svg className="w-4 h-4 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span className="text-sm">{course}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* My Tutoring Approach */}
+      <section className="py-16 bg-base-100">
+        <div className="container mx-auto max-w-6xl px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold">My STEM Tutoring Approach</h2>
+            <p className="mt-4 text-lg max-w-3xl mx-auto">
+              A proven methodology that combines conceptual understanding with strategic problem-solving techniques across Mathematics and Physics.
             </p>
           </div>
           
@@ -144,9 +240,9 @@ export default function Tutoring() {
                     </svg>
                   </div>
                 </div>
-                <h3 className="card-title justify-center">Diagnostic Assessment</h3>
+                <h3 className="card-title justify-center">Multi-Subject Assessment</h3>
                 <p className="text-center">
-                  Every tutoring relationship begins with a thorough assessment to identify your specific strengths, areas for improvement, and learning style preferences.
+                  Every tutoring relationship begins with a comprehensive assessment across your enrolled STEM subjects to identify strengths, areas for improvement, and connections between courses.
                 </p>
               </div>
             </div>
@@ -160,9 +256,9 @@ export default function Tutoring() {
                     </svg>
                   </div>
                 </div>
-                <h3 className="card-title justify-center">Personalized Plan</h3>
+                <h3 className="card-title justify-center">Integrated Learning Plan</h3>
                 <p className="text-center">
-                  Based on your assessment, I create a customized learning plan that targets your specific needs while aligning with the AP Physics curriculum requirements.
+                  I create customized learning plans that connect mathematical concepts with physical applications, showing how calculus tools enhance physics problem-solving.
                 </p>
               </div>
             </div>
@@ -176,9 +272,9 @@ export default function Tutoring() {
                     </svg>
                   </div>
                 </div>
-                <h3 className="card-title justify-center">Multi-Modal Teaching</h3>
+                <h3 className="card-title justify-center">Subject-Adaptive Teaching</h3>
                 <p className="text-center">
-                  I employ visual, verbal, and interactive teaching methods to accommodate different learning styles and make complex physics concepts accessible.
+                  I employ different teaching methods optimized for each subject—algebraic thinking for math, conceptual frameworks for physics—while maintaining coherent connections.
                 </p>
               </div>
             </div>
@@ -192,9 +288,9 @@ export default function Tutoring() {
                     </svg>
                   </div>
                 </div>
-                <h3 className="card-title justify-center">Regular Assessment</h3>
+                <h3 className="card-title justify-center">Cross-Subject Assessment</h3>
                 <p className="text-center">
-                  Ongoing formative assessment allows us to track progress, identify misconceptions early, and adjust our approach as needed.
+                  Regular assessment tracks progress across all enrolled subjects, ensuring balanced development and readiness for multiple AP exams.
                 </p>
               </div>
             </div>
@@ -208,9 +304,9 @@ export default function Tutoring() {
                     </svg>
                   </div>
                 </div>
-                <h3 className="card-title justify-center">Exam Strategies</h3>
+                <h3 className="card-title justify-center">Exam Strategy Specialization</h3>
                 <p className="text-center">
-                  Beyond content knowledge, I teach proven test-taking strategies specific to the AP Physics 1 exam format to maximize your score.
+                  I teach subject-specific test-taking strategies for each AP exam format while helping students manage multiple exam preparations efficiently.
                 </p>
               </div>
             </div>
@@ -224,9 +320,9 @@ export default function Tutoring() {
                     </svg>
                   </div>
                 </div>
-                <h3 className="card-title justify-center">Supplemental Resources</h3>
+                <h3 className="card-title justify-center">Comprehensive Resources</h3>
                 <p className="text-center">
-                  I provide carefully selected supplemental materials, practice problems, and digital resources to reinforce learning between sessions.
+                  I provide carefully curated resources for each subject, including subject-specific practice problems, digital tools, and supplemental materials for both Math and Physics courses.
                 </p>
               </div>
             </div>
@@ -235,12 +331,12 @@ export default function Tutoring() {
       </section>
 
       {/* Tutoring Options */}
-      <section id="compare" className="py-16 bg-base-100">
+      <section id="compare" className="py-16 bg-base-200">
         <div className="container mx-auto max-w-6xl px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold">Choose Your Tutoring Format</h2>
             <p className="mt-4 text-lg max-w-3xl mx-auto">
-              Select the learning approach that best fits your needs, learning style, and budget.
+              Select the learning approach that best fits your needs, learning style, and budget across our STEM curriculum.
             </p>
           </div>
           
@@ -312,7 +408,7 @@ export default function Tutoring() {
           </div>
 
           {/* Package Discounts */}
-          <div className="mt-12 bg-base-200 rounded-lg shadow-md p-6">
+          <div className="mt-12 bg-base-100 rounded-lg shadow-md p-6">
             <h3 className="text-xl font-bold mb-4">Session Package Discounts</h3>
             <div className="overflow-x-auto">
               <table className="table">
@@ -352,17 +448,20 @@ export default function Tutoring() {
                 </tbody>
               </table>
             </div>
+            <p className="text-sm text-base-content/70 mt-4">
+              * Discounts apply per subject. Students enrolled in multiple subjects receive package pricing for each course.
+            </p>
           </div>
         </div>
       </section>
 
       {/* The Tutoring Process */}
-      <section className="py-16 bg-base-200">
+      <section className="py-16 bg-base-100">
         <div className="container mx-auto max-w-6xl px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold">The Tutoring Process</h2>
+            <h2 className="text-3xl font-bold">The STEM Tutoring Process</h2>
             <p className="mt-4 text-lg max-w-3xl mx-auto">
-              A structured approach from initial contact to ongoing academic success.
+              A structured approach from initial contact to ongoing academic success across multiple STEM subjects.
             </p>
           </div>
           
@@ -374,7 +473,7 @@ export default function Tutoring() {
                 </div>
                 <div className="timeline-start md:text-end mb-10">
                   <div className="text-lg font-black">Initial Consultation</div>
-                  <p>A free 15-minute consultation to discuss your goals, current understanding of physics, and determine if my teaching approach is a good fit for your needs.</p>
+                  <p>A free 15-minute consultation to discuss your academic goals, current understanding across STEM subjects, and determine which courses best fit your needs and timeline.</p>
                 </div>
                 <hr/>
               </li>
@@ -384,8 +483,8 @@ export default function Tutoring() {
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5 text-primary"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" /></svg>
                 </div>
                 <div className="timeline-end mb-10">
-                  <div className="text-lg font-black">Diagnostic Assessment</div>
-                  <p>Your first full session includes a comprehensive assessment to identify your strengths, areas for improvement, and learning preferences.</p>
+                  <div className="text-lg font-black">Multi-Subject Assessment</div>
+                  <p>Your first full session includes comprehensive assessment across all enrolled subjects to identify strengths, areas for improvement, and connections between Math and Physics concepts.</p>
                 </div>
                 <hr/>
               </li>
@@ -395,8 +494,8 @@ export default function Tutoring() {
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5 text-primary"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" /></svg>
                 </div>
                 <div className="timeline-start md:text-end mb-10">
-                  <div className="text-lg font-black">Personalized Learning Plan</div>
-                  <p>Based on your assessment, I develop a customized learning plan with specific objectives, timeline, and recommended session frequency.</p>
+                  <div className="text-lg font-black">Integrated Learning Plan</div>
+                  <p>I develop a customized learning plan that coordinates across subjects, showing how mathematical tools enhance physics problem-solving and ensuring balanced progress.</p>
                 </div>
                 <hr/>
               </li>
@@ -406,8 +505,8 @@ export default function Tutoring() {
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5 text-primary"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" /></svg>
                 </div>
                 <div className="timeline-end mb-10">
-                  <div className="text-lg font-black">Regular Tutoring Sessions</div>
-                  <p>Interactive online sessions following your learning plan, with real-time problem solving, concept explanation, and progress tracking.</p>
+                  <div className="text-lg font-black">Subject-Focused Sessions</div>
+                  <p>Interactive online sessions following your integrated learning plan, with real-time problem solving, concept explanation, and progress tracking across all enrolled subjects.</p>
                 </div>
                 <hr/>
               </li>
@@ -417,8 +516,8 @@ export default function Tutoring() {
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5 text-primary"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" /></svg>
                 </div>
                 <div className="timeline-start md:text-end mb-10">
-                  <div className="text-lg font-black">Practice & Homework</div>
-                  <p>Between sessions, you'll complete targeted assignments designed to reinforce concepts and build problem-solving skills.</p>
+                  <div className="text-lg font-black">Cross-Subject Practice</div>
+                  <p>Between sessions, you'll complete targeted assignments designed to reinforce concepts within each subject while highlighting connections between mathematical and physical reasoning.</p>
                 </div>
                 <hr/>
               </li>
@@ -428,8 +527,8 @@ export default function Tutoring() {
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5 text-primary"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" /></svg>
                 </div>
                 <div className="timeline-end mb-10">
-                  <div className="text-lg font-black">Ongoing Assessment</div>
-                  <p>Regular progress checks and unit assessments to measure growth and adjust the learning plan as needed for optimal results.</p>
+                  <div className="text-lg font-black">Comprehensive Assessment</div>
+                  <p>Regular progress checks and unit assessments across all subjects to measure growth and adjust the integrated learning plan for optimal results.</p>
                 </div>
                 <hr/>
               </li>
@@ -439,8 +538,8 @@ export default function Tutoring() {
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5 text-primary"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" /></svg>
                 </div>
                 <div className="timeline-start md:text-end">
-                  <div className="text-lg font-black">Exam Preparation</div>
-                  <p>As the AP exam approaches, we'll focus on review strategies, practice exams, and targeted preparation for the specific exam format.</p>
+                  <div className="text-lg font-black">Multi-Exam Preparation</div>
+                  <p>As AP exams approach, we'll coordinate review strategies across all your subjects, ensuring efficient preparation for multiple exams with subject-specific practice and timing strategies.</p>
                 </div>
               </li>
             </ul>
@@ -448,133 +547,19 @@ export default function Tutoring() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-16 bg-base-100">
-        <div className="container mx-auto max-w-6xl px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold">Student Success Stories</h2>
-            <p className="mt-4 text-lg max-w-3xl mx-auto">
-              Hear from students who have achieved excellent results with our tutoring approach.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="card bg-base-200 shadow-md">
-              <div className="card-body">
-                <div className="flex items-center mb-4">
-                  <div className="avatar placeholder mr-4">
-                    <div className="bg-neutral-focus text-neutral-content rounded-full w-12">
-                      <span>JD</span>
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="font-bold">Jamie D.</h3>
-                    <p className="text-sm">AP Physics 1 Student</p>
-                  </div>
-                </div>
-                <p className="italic">
-                  "The structured approach and personalized feedback helped me achieve a 5 on the AP exam. 
-                  The fluid mechanics section was particularly helpful as it was a challenging topic for me."
-                </p>
-                <div className="flex mt-4">
-                  <div className="rating rating-sm">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <input 
-                        key={star}
-                        type="radio" 
-                        name="rating-1" 
-                        className="mask mask-star-2 bg-orange-400" 
-                        checked={star === 5} 
-                        readOnly
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="card bg-base-200 shadow-md">
-              <div className="card-body">
-                <div className="flex items-center mb-4">
-                  <div className="avatar placeholder mr-4">
-                    <div className="bg-neutral-focus text-neutral-content rounded-full w-12">
-                      <span>RL</span>
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="font-bold">Ryan L.</h3>
-                    <p className="text-sm">English Language Learner</p>
-                  </div>
-                </div>
-                <p className="italic">
-                  "As an ESL student, I struggled with physics terminology. The visual teaching methods and patient explanations helped me understand complex concepts despite the language barrier. I improved from a C to an A- in my school physics class."
-                </p>
-                <div className="flex mt-4">
-                  <div className="rating rating-sm">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <input 
-                        key={star}
-                        type="radio" 
-                        name="rating-2" 
-                        className="mask mask-star-2 bg-orange-400" 
-                        checked={star === 5} 
-                        readOnly
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="card bg-base-200 shadow-md">
-              <div className="card-body">
-                <div className="flex items-center mb-4">
-                  <div className="avatar placeholder mr-4">
-                    <div className="bg-neutral-focus text-neutral-content rounded-full w-12">
-                      <span>MK</span>
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="font-bold">Misha K.</h3>
-                    <p className="text-sm">Group Class Student</p>
-                  </div>
-                </div>
-                <p className="italic">
-                  "The group classes were affordable and effective. I liked hearing other students' questions as they often addressed points I hadn't considered. The collaborative problem-solving sessions were especially valuable for understanding complex topics."
-                </p>
-                <div className="flex mt-4">
-                  <div className="rating rating-sm">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <input 
-                        key={star}
-                        type="radio" 
-                        name="rating-3" 
-                        className="mask mask-star-2 bg-orange-400" 
-                        checked={star === 5} 
-                        readOnly
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* FAQ */}
-      <section className="py-16 bg-base-200">
+      <section className="py-16 bg-base-100">
         <div className="container mx-auto max-w-6xl px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold">Frequently Asked Questions</h2>
             <p className="mt-4 text-lg max-w-3xl mx-auto">
-              Common questions about our tutoring services.
+              Common questions about our comprehensive STEM tutoring services.
             </p>
           </div>
           
           <div className="max-w-3xl mx-auto">
             {faqItems.map((item, index) => (
-              <div key={index} className="collapse collapse-plus bg-base-100 mb-4">
+              <div key={index} className="collapse collapse-plus bg-base-200 mb-4">
                 <input type="radio" name="faq-accordion" checked={index === 0 ? "checked" : ""} /> 
                 <div className="collapse-title text-xl font-medium">
                   {item.question}
@@ -591,9 +576,9 @@ export default function Tutoring() {
       {/* Call to Action */}
       <section className="py-16 px-6 bg-primary text-primary-content">
         <div className="container mx-auto max-w-6xl text-center">
-          <h2 className="text-3xl font-bold mb-6">Ready to Transform Your Physics Understanding?</h2>
+          <h2 className="text-3xl font-bold mb-6">Ready to Transform Your STEM Understanding?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Whether you choose one-on-one tutoring or our affordable group classes, I'm committed to helping you achieve excellence in AP Physics.
+            Whether you choose one-on-one tutoring or our affordable group classes, I'm committed to helping you achieve excellence across all your STEM subjects.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact" className="btn btn-secondary">
