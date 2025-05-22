@@ -1,103 +1,193 @@
+import Hero from "../components/Hero";
+import CourseUnitCard from "../components/CourseUnitCard";
+import TutoringOption from "../components/TutoringOption";
+import AboutInstructor from "../components/AboutInstructor";
 import Image from "next/image";
+import Link from "next/link";
+
+// Sample data for course units
+const courseUnits = [
+  {
+    number: 1,
+    title: "Kinematics",
+    topics: ["Motion in One Dimension", "Motion in Two Dimensions", "Projectile Motion"],
+    lessons: 5,
+    slug: "kinematics"
+  },
+  {
+    number: 2,
+    title: "Dynamics",
+    topics: ["Newton's Laws of Motion", "Forces", "Friction and Drag"],
+    lessons: 5,
+    slug: "dynamics"
+  },
+  {
+    number: 3,
+    title: "Circular Motion & Gravitation",
+    topics: ["Uniform Circular Motion", "Universal Gravitation", "Orbital Motion"],
+    lessons: 5,
+    slug: "circular-motion"
+  },
+  {
+    number: 7,
+    title: "Fluids",
+    topics: ["Pressure", "Buoyancy", "Fluid Dynamics"],
+    lessons: 5,
+    slug: "fluids"
+  }
+];
+
+// Tutoring options data
+const tutoringOptions = [
+  {
+    title: "One-on-One Tutoring",
+    price: 70,
+    features: [
+      "Private 55-minute Zoom sessions",
+      "Personalized curriculum pacing",
+      "Homework assistance",
+      "Direct access to tutor",
+      "Flexible scheduling",
+      "Detailed progress reports"
+    ],
+    primary: true,
+    href: "/booking/individual"
+  },
+  {
+    title: "Group Classes",
+    price: 30,
+    features: [
+      "Small groups (4-6 students)",
+      "55-minute Zoom sessions",
+      "Structured curriculum",
+      "Collaborative learning",
+      "Affordable rates",
+      "Comprehensive unit exams"
+    ],
+    primary: false,
+    href: "/booking/group"
+  }
+];
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <>
+      <Hero />
+      
+      {/* Course Overview Section */}
+      <section className="py-16 px-6 bg-base-100">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold">AP Physics 1 Curriculum</h2>
+            <p className="mt-4 text-lg max-w-3xl mx-auto">
+              Our curriculum is meticulously aligned with the College Board's updated AP Physics 1 
+              exam outline, including the new Fluids unit.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {courseUnits.map((unit) => (
+              <CourseUnitCard key={unit.number} {...unit} />
+            ))}
+          </div>
+          
+          <div className="text-center mt-8">
+            <Link href="/courses" className="btn btn-outline btn-primary">
+              View Full Curriculum
+            </Link>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+      
+      {/* Tutoring Options Section */}
+      <section className="py-16 px-6 bg-base-200">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold">Tutoring Options</h2>
+            <p className="mt-4 text-lg max-w-3xl mx-auto">
+              Choose the learning format that best fits your needs and budget.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {tutoringOptions.map((option, index) => (
+              <TutoringOption key={index} {...option} />
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* About Instructor Section */}
+      <AboutInstructor />
+      
+      {/* Testimonials Section */}
+      <section className="py-16 px-6 bg-base-200">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold">Student Success Stories</h2>
+            <p className="mt-4 text-lg max-w-3xl mx-auto">
+              Hear from students who have achieved excellent results with our tutoring approach.
+            </p>
+          </div>
+          
+          <div className="carousel w-full max-w-4xl mx-auto">
+            {/* You can expand this with actual testimonials - this is a placeholder */}
+            <div className="carousel-item w-full">
+              <div className="card bg-base-100 shadow-md">
+                <div className="card-body">
+                  <div className="flex items-center mb-4">
+                    <div className="avatar placeholder mr-4">
+                      <div className="bg-neutral-focus text-neutral-content rounded-full w-12">
+                        <span>JD</span>
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="font-bold">Jamie D.</h3>
+                      <p className="text-sm">AP Physics 1 Student</p>
+                    </div>
+                  </div>
+                  <p className="italic">
+                    "The structured approach and personalized feedback helped me achieve a 5 on the AP exam. 
+                    The fluid mechanics section was particularly helpful as it was a challenging topic for me."
+                  </p>
+                  <div className="flex mt-4">
+                    <div className="rating rating-sm">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <input 
+                          key={star}
+                          type="radio" 
+                          name="rating-1" 
+                          className="mask mask-star-2 bg-orange-400" 
+                          checked={star === 5} 
+                          readOnly
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Call to Action */}
+      <section className="py-16 px-6 bg-primary text-primary-content">
+        <div className="container mx-auto max-w-6xl text-center">
+          <h2 className="text-3xl font-bold mb-6">Ready to Excel in AP Physics?</h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">
+            Join our expert-led sessions and build the knowledge and confidence you need to succeed.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/contact" className="btn btn-secondary">
+              Schedule a Free Consultation
+            </Link>
+            <Link href="/booking" className="btn bg-white text-primary hover:bg-base-200">
+              Book Your First Session
+            </Link>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

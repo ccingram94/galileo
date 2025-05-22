@@ -1,27 +1,50 @@
 @import "tailwindcss";
 @plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: "galileo";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  /* Main colors */
+  --color-primary: oklch(50% 0.25 260);        /* Deep blue for trust/education */
+  --color-primary-content: oklch(98% 0.01 260);
+  --color-secondary: oklch(60% 0.22 270);      /* Complementary purple */
+  --color-secondary-content: oklch(98% 0.01 270);
+  --color-accent: oklch(75% 0.25 40);          /* Orange accent for CTAs */
+  --color-accent-content: oklch(10% 0.01 40);
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Background and text colors */
+  --color-base-100: oklch(98% 0.01 240);       /* White background */
+  --color-base-200: oklch(95% 0.02 240);       /* Light gray for sections */
+  --color-base-300: oklch(90% 0.03 240);       /* Medium gray for borders */
+  --color-base-content: oklch(25% 0.02 240);   /* Dark text for readability */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+  /* Functional colors */
+  --color-neutral: oklch(40% 0.03 260);
+  --color-neutral-content: oklch(98% 0.01 260);
+  --color-info: oklch(65% 0.2 220);            /* Blue for info messages */
+  --color-info-content: oklch(98% 0.01 220);
+  --color-success: oklch(65% 0.2 150);         /* Green for success states */
+  --color-success-content: oklch(98% 0.01 150);
+  --color-warning: oklch(80% 0.2 90);          /* Yellow for warnings */
+  --color-warning-content: oklch(15% 0.03 90);
+  --color-error: oklch(65% 0.3 25);            /* Red for errors */
+  --color-error-content: oklch(98% 0.01 25);
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Border radius */
+  --radius-selector: 0.5rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.5rem;
+
+  /* Base sizes */
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  /* Border size */
+  --border: 1px;
+
+  /* Effects */
+  --depth: 0.8;  /* Slightly less pronounced shadows for a cleaner look */
+  --noise: 0;    /* No noise texture for a minimal, modern feel */
 }
