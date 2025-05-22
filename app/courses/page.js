@@ -80,7 +80,7 @@ export default function Courses() {
         slug: "ap-physics-1",
         color: "secondary",
         highlight: true,
-        note: "Updated for 2023-2025 with new Fluids unit"
+        note: "Updated for 2024-2025 exam with new Fluids unit"
       },
       {
         title: "AP Physics 2: Algebra-Based",
@@ -230,9 +230,6 @@ export default function Courses() {
                   <div className="flex items-center gap-4 flex-wrap">
                     <h3 className="card-title text-2xl">{course.title}</h3>
                     <div className={`badge ${getDifficultyBadge(course.difficulty)}`}>{course.difficulty}</div>
-                    {course.highlight && (
-                      <div className="badge badge-accent">Most Popular</div>
-                    )}
                   </div>
                   
                   <p className="mt-2 lg:pr-10">{course.description}</p>
@@ -298,9 +295,6 @@ export default function Courses() {
                   <div className="flex items-center gap-4 flex-wrap">
                     <h3 className="card-title text-2xl">{course.title}</h3>
                     <div className={`badge ${getDifficultyBadge(course.difficulty)}`}>{course.difficulty}</div>
-                    {course.highlight && (
-                      <div className="badge badge-accent">Updated 2023-2025</div>
-                    )}
                   </div>
                   
                   <p className="mt-2 lg:pr-10">{course.description}</p>
