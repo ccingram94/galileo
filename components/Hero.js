@@ -34,7 +34,7 @@ export default function Hero() {
             {/* Main image with enhanced styling */}
             <div className="relative p-6 bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-base-200">
               <Image 
-                src="/stem-hero.svg" 
+                src="/stem-hero.jpg" 
                 alt="STEM education visualization showing math and physics concepts"
                 width={500}
                 height={500}
