@@ -75,7 +75,7 @@ export default function Home() {
       <Hero />
       
       {/* Course Overview Section */}
-      <section className="py-20 px-6 bg-gradient-to-br from-base-100 via-base-50 to-primary/5 relative overflow-hidden">
+      <section className="py-20 px-6 bg-gradient-to-br from-base-100 via-base-200/30 to-primary/5">
         {/* Background decorative elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/4 -right-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl"></div>
@@ -111,19 +111,19 @@ export default function Home() {
 
             {/* Stats row */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto mb-8">
-              <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-base-200">
+              <div className="bg-base-100 rounded-box border border-base-300 p-4 shadow-lg">
                 <div className="text-2xl font-bold text-primary">10</div>
                 <div className="text-xs text-base-content/70">Complete Units</div>
               </div>
-              <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-base-200">
+              <div className="bg-base-100 rounded-box border border-base-300 p-4 shadow-lg">
                 <div className="text-2xl font-bold text-secondary">100+</div>
                 <div className="text-xs text-base-content/70">Practice Problems</div>
               </div>
-              <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-base-200">
+              <div className="bg-base-100 rounded-box border border-base-300 p-4 shadow-lg">
                 <div className="text-2xl font-bold text-accent">40+</div>
                 <div className="text-xs text-base-content/70">Video Lessons</div>
               </div>
-              <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-base-200">
+              <div className="bg-base-100 rounded-box border border-base-300 p-4 shadow-lg">
                 <div className="text-2xl font-bold text-info">24/7</div>
                 <div className="text-xs text-base-content/70">Access</div>
               </div>
@@ -168,17 +168,17 @@ export default function Home() {
           </div>
 
           {/* Bottom Section */}
-          <div className="bg-gradient-to-r from-primary/10 via-secondary/5 to-accent/10 rounded-3xl p-8 lg:p-12 border border-primary/20 shadow-xl">
+          <div className="bg-gradient-to-r from-primary/5 via-secondary/3 to-accent/5 rounded-box p-8 lg:p-12 border border-base-300 shadow-xl">
             <div className="text-center space-y-6">
               {/* Achievement badges */}
               <div className="flex flex-wrap justify-center gap-4 mb-6">
-                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-xl shadow-lg">
-                  <div className="w-8 h-8 bg-success/20 rounded-lg flex items-center justify-center">
+              <div className="flex items-center gap-2 bg-base-100 border border-success/20 px-4 py-2 rounded-box shadow-lg">
+                <div className="w-8 h-8 bg-success/10 rounded-btn flex items-center justify-center">
                     <svg className="w-4 h-4 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
-                  <span className="text-sm font-medium">97% Pass Rate</span>
+                  <span className="text-sm font-medium text-success">97% Pass Rate</span>
                 </div>
                 <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-xl shadow-lg">
                   <div className="w-8 h-8 bg-warning/20 rounded-lg flex items-center justify-center">
@@ -236,12 +236,12 @@ export default function Home() {
               {/* Trust indicators */}
               <div className="flex flex-wrap justify-center items-center gap-6 pt-8 border-t border-white/20">
                 <div className="flex items-center gap-2 text-sm text-base-content/70">
-                  <div className="flex -space-x-1">
-                    <div className="w-6 h-6 bg-primary rounded-full border-2 border-white"></div>
-                    <div className="w-6 h-6 bg-secondary rounded-full border-2 border-white"></div>
-                    <div className="w-6 h-6 bg-accent rounded-full border-2 border-white"></div>
-                    <div className="w-6 h-6 bg-info rounded-full border-2 border-white"></div>
-                  </div>
+                <div className="flex -space-x-1">
+                  <div className="w-6 h-6 bg-primary rounded-full border-2 border-base-100"></div>
+                  <div className="w-6 h-6 bg-secondary rounded-full border-2 border-base-100"></div>
+                  <div className="w-6 h-6 bg-accent rounded-full border-2 border-base-100"></div>
+                  <div className="w-6 h-6 bg-info rounded-full border-2 border-base-100"></div>
+                </div>
                   <span>Join 500+ successful students</span>
                 </div>
                 
@@ -286,10 +286,10 @@ export default function Home() {
             Join our expert-led sessions and build the knowledge and confidence you need to succeed.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="btn btn-secondary">
+            <Link href="/contact" className="btn btn-secondary btn-lg">
               Schedule a Free Consultation
             </Link>
-            <Link href="/booking" className="btn bg-white text-primary hover:bg-base-200">
+            <Link href="/booking" className="btn btn-outline btn-secondary btn-lg">
               Book Your First Session
             </Link>
           </div>

@@ -146,7 +146,7 @@ export default function Hero() {
                 <div className="w-6 h-6 bg-secondary rounded-full border-2 border-white"></div>
                 <div className="w-6 h-6 bg-accent rounded-full border-2 border-white"></div>
               </div>
-              <span>500+ successful students</span>
+              <span>5000+ successful students</span>
             </div>
             
             <div className="flex items-center gap-1 text-sm text-base-content/70">
@@ -157,7 +157,7 @@ export default function Hero() {
                   </svg>
                 ))}
               </div>
-              <span>4.9/5 rating</span>
+              <span>4.8/5 rating</span>
             </div>
           </div>
         </div>

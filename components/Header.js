@@ -1,7 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { auth } from '@/auth'; // Adjust path based on your auth config location
 
-export default function Header() {
+export default async function Header() {
+  // Check if user is authenticated
+  const session = await auth();
+  const user = session?.user;
+
   return (
     <div className="navbar bg-base-100 shadow-lg border-b border-base-200 sticky top-0 z-50 backdrop-blur-sm">
       <div className="navbar-start">
@@ -44,6 +49,18 @@ export default function Header() {
                 Student Resources
               </Link>
             </li>
+            
+            {/* Mobile Dashboard Link for authenticated users */}
+            {user && (
+              <li>
+                <Link href="/dashboard" className="hover:bg-success/10 hover:text-success transition-colors duration-200">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                  Dashboard
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
         <Link href="/" className="btn btn-ghost normal-case text-xl hover:bg-transparent group">
@@ -74,7 +91,7 @@ export default function Header() {
           <li>
             <Link href="/tutoring" className="btn btn-ghost btn-sm hover:btn-secondary hover:text-secondary-content transition-all duration-200 font-medium">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 715.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
               Tutoring
             </Link>
@@ -100,14 +117,43 @@ export default function Header() {
       
       <div className="navbar-end">
         <div className="flex items-center gap-3">
-          <div className="tooltip tooltip-bottom" data-tip="Student Portal">
-            <Link href="/signin" className="btn btn-primary btn-sm gap-2 hover:btn-primary-focus transition-all duration-200 shadow-md hover:shadow-lg">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-              </svg>
-              Sign In
-            </Link>
-          </div>
+          {user ? (
+            // Authenticated user - show dashboard button with user info
+            <div className="flex items-center gap-3">
+              <div className="tooltip tooltip-bottom" data-tip={`Welcome, ${user.name?.split(' ')[0] || 'Student'}`}>
+                <div className="avatar">
+                  <div className="w-8 h-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-1">
+                    {user.image ? (
+                      <img src={user.image} alt={user.name || 'User'} />
+                    ) : (
+                      <div className="bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-xs font-bold">
+                        {user.name?.charAt(0) || 'U'}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+              
+              <div className="tooltip tooltip-bottom" data-tip="Student Dashboard">
+                <Link href="/dashboard" className="btn btn-primary btn-sm gap-2 hover:btn-primary-focus transition-all duration-200 shadow-md hover:shadow-lg">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                  <span className="hidden sm:inline">Dashboard</span>
+                </Link>
+              </div>
+            </div>
+          ) : (
+            // Not authenticated - show sign in button
+            <div className="tooltip tooltip-bottom" data-tip="Student Portal">
+              <Link href="/signin" className="btn btn-primary btn-sm gap-2 hover:btn-primary-focus transition-all duration-200 shadow-md hover:shadow-lg">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                </svg>
+                Sign In
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>
