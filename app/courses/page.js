@@ -80,7 +80,7 @@ export default function Courses() {
         slug: "ap-physics-1",
         color: "secondary",
         highlight: true,
-        note: "Updated for 2024-2025 exam with new Fluids unit"
+        note: "Updated for 2024-2025 with new Fluids unit"
       },
       {
         title: "AP Physics 2: Algebra-Based",
@@ -151,34 +151,52 @@ export default function Courses() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-base-100 py-20">
-        <div className="container mx-auto max-w-6xl px-6">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            <div className="lg:w-1/2">
-              <div className="badge badge-primary mb-4">STEM Excellence</div>
-              <h1 className="text-4xl lg:text-5xl font-bold mb-6">Math & Physics Courses</h1>
-              <p className="text-lg mb-6">
-                Master challenging STEM concepts with our comprehensive curricula designed to build deep conceptual understanding and problem-solving skills across Mathematics and Physics.
-              </p>
-              <div className="flex gap-4 flex-wrap">
-                <Link href="/booking/individual" className="btn btn-primary">One-on-One Tutoring</Link>
-                <Link href="/booking/group" className="btn btn-outline btn-primary">Group Classes</Link>
-              </div>
+    {/* Hero Section - Enhanced with better visual hierarchy */}
+    <section className="relative bg-gradient-to-br from-primary/5 via-base-100 to-secondary/5 py-24 overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent"></div>
+      <div className="container mx-auto max-w-7xl px-6 relative">
+        <div className="flex flex-col lg:flex-row items-center gap-16">
+          <div className="lg:w-1/2 space-y-6">
+            <div className="badge badge-outline badge-lg text-primary border-primary/30">
+              STEM Excellence
             </div>
-            <div className="lg:w-1/2 flex justify-center">
-              <div className="relative w-full h-80">
+            <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
+              Math & Physics 
+              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent block">
+                Courses
+              </span>
+            </h1>
+            <p className="text-xl text-base-content/80 leading-relaxed max-w-lg">
+              Master challenging STEM concepts with our comprehensive curricula designed to build deep conceptual understanding and problem-solving skills across Mathematics and Physics.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <Link href="/booking/individual" className="btn btn-primary btn-lg shadow-lg">
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                One-on-One Tutoring
+              </Link>
+              <Link href="/booking/group" className="btn btn-outline btn-lg hover:btn-primary">
+                Group Classes
+              </Link>
+            </div>
+          </div>
+          <div className="lg:w-1/2 flex justify-center">
+            <div className="relative group">
+              <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+              <div className="relative w-96 h-96 rounded-2xl overflow-hidden shadow-2xl">
                 <Image 
-                  src="/stem-courses-hero.svg" 
-                  alt="STEM education illustration" 
+                  src="/about-hero.jpg" 
+                  alt="Math and Physics courses" 
                   fill
-                  className="object-contain"
+                  className="object-cover hover:scale-105 transition-transform duration-700"
                 />
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Course Overview Stats */}
       <section className="py-16 bg-base-200">
