@@ -5,9 +5,10 @@ import Link from 'next/link';
 const prisma = new PrismaClient();
 
 export default async function CourseContentPage({ params }) {
+  const resolvedParams = await params;
   try {
     const course = await prisma.course.findUnique({
-      where: { id: params.id },
+      where: { id: resolvedParams.id },
       include: {
         units: {
           include: {

@@ -18,9 +18,10 @@ const AP_EXAM_TYPES = [
 ];
 
 export default async function CourseEditPage({ params }) {
+  const resolvedParams = await params;
   try {
     const course = await prisma.course.findUnique({
-      where: { id: params.id },
+      where: { id: resolvedParams.id },
       include: {
         enrollments: true,
         units: {
