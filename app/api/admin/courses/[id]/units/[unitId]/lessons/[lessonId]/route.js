@@ -4,7 +4,6 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-// GET /api/admin/courses/[id]/units/[unitId]/lessons/[lessonId] - Get a specific lesson
 export async function GET(request, { params }) {
   try {
     const session = await auth();
@@ -21,10 +20,13 @@ export async function GET(request, { params }) {
       return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
     }
 
+    // Add this line
+    const resolvedParams = await params;
+
     const lesson = await prisma.lesson.findUnique({
       where: { 
-        id: params.lessonId,
-        unitId: params.unitId 
+        id: resolvedParams.lessonId,  // Use resolvedParams
+        unitId: resolvedParams.unitId   // Use resolvedParams
       },
       include: {
         lessonQuizzes: {
@@ -45,7 +47,7 @@ export async function GET(request, { params }) {
     }
 
     // Verify lesson belongs to the correct course
-    if (lesson.unit.courseId !== params.id) {
+    if (lesson.unit.courseId !== resolvedParams.id) {  // Use resolvedParams
       return NextResponse.json({ error: 'Lesson not found' }, { status: 404 });
     }
 
@@ -61,6 +63,7 @@ export async function GET(request, { params }) {
     await prisma.$disconnect();
   }
 }
+
 
 // PUT /api/admin/courses/[id]/units/[unitId]/lessons/[lessonId] - Update a lesson
 export async function PUT(request, { params }) {
@@ -79,11 +82,14 @@ export async function PUT(request, { params }) {
       return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
     }
 
+    // Await params first
+    const resolvedParams = await params;
+
     // Verify lesson exists and belongs to the unit/course
     const existingLesson = await prisma.lesson.findUnique({
       where: { 
-        id: params.lessonId,
-        unitId: params.unitId 
+        id: resolvedParams.lessonId,
+        unitId: resolvedParams.unitId 
       },
       include: {
         unit: true
@@ -94,7 +100,7 @@ export async function PUT(request, { params }) {
       return NextResponse.json({ error: 'Lesson not found' }, { status: 404 });
     }
 
-    if (existingLesson.unit.courseId !== params.id) {
+    if (existingLesson.unit.courseId !== resolvedParams.id) {
       return NextResponse.json({ error: 'Lesson not found' }, { status: 404 });
     }
 
@@ -135,7 +141,7 @@ export async function PUT(request, { params }) {
         // Moving up: increment order of lessons between newOrder and oldOrder
         await prisma.lesson.updateMany({
           where: {
-            unitId: params.unitId,
+            unitId: resolvedParams.unitId,
             order: { gte: newOrder, lt: oldOrder }
           },
           data: {
@@ -146,7 +152,7 @@ export async function PUT(request, { params }) {
         // Moving down: decrement order of lessons between oldOrder and newOrder
         await prisma.lesson.updateMany({
           where: {
-            unitId: params.unitId,
+            unitId: resolvedParams.unitId,
             order: { gt: oldOrder, lte: newOrder }
           },
           data: {
@@ -157,7 +163,7 @@ export async function PUT(request, { params }) {
     }
 
     const lesson = await prisma.lesson.update({
-      where: { id: params.lessonId },
+      where: { id: resolvedParams.lessonId },
       data: {
         title: title.trim(),
         description: description?.trim() || null,
@@ -186,6 +192,69 @@ export async function PUT(request, { params }) {
   }
 }
 
+// Add this PATCH method after your existing PUT method and before DELETE
+export async function PATCH(request, { params }) {
+  try {
+    const session = await auth();
+    
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id }
+    });
+
+    if (!user || user.role !== 'ADMIN') {
+      return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
+    }
+
+    // Await params first
+    const resolvedParams = await params;
+
+    // Verify lesson exists and belongs to the unit/course
+    const existingLesson = await prisma.lesson.findUnique({
+      where: { 
+        id: resolvedParams.lessonId,
+        unitId: resolvedParams.unitId 
+      },
+      include: {
+        unit: true
+      }
+    });
+
+    if (!existingLesson) {
+      return NextResponse.json({ error: 'Lesson not found' }, { status: 404 });
+    }
+
+    if (existingLesson.unit.courseId !== resolvedParams.id) {
+      return NextResponse.json({ error: 'Lesson not found' }, { status: 404 });
+    }
+
+    const { isPublished } = await request.json();
+
+    // Update only the publication status
+    const lesson = await prisma.lesson.update({
+      where: { id: resolvedParams.lessonId },
+      data: { 
+        isPublished: Boolean(isPublished),
+        updatedAt: new Date()
+      },
+    });
+
+    return NextResponse.json(lesson);
+
+  } catch (error) {
+    console.error('Error updating lesson status:', error);
+    return NextResponse.json(
+      { error: 'Failed to update lesson status' },
+      { status: 500 }
+    );
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
 // DELETE /api/admin/courses/[id]/units/[unitId]/lessons/[lessonId] - Delete a lesson
 export async function DELETE(request, { params }) {
   try {
@@ -203,11 +272,14 @@ export async function DELETE(request, { params }) {
       return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
     }
 
+    // Await params first
+    const resolvedParams = await params;
+
     // Verify lesson exists and belongs to the unit/course
     const existingLesson = await prisma.lesson.findUnique({
       where: { 
-        id: params.lessonId,
-        unitId: params.unitId 
+        id: resolvedParams.lessonId,
+        unitId: resolvedParams.unitId 
       },
       include: {
         unit: true,
@@ -223,7 +295,7 @@ export async function DELETE(request, { params }) {
       return NextResponse.json({ error: 'Lesson not found' }, { status: 404 });
     }
 
-    if (existingLesson.unit.courseId !== params.id) {
+    if (existingLesson.unit.courseId !== resolvedParams.id) {
       return NextResponse.json({ error: 'Lesson not found' }, { status: 404 });
     }
 
@@ -238,18 +310,18 @@ export async function DELETE(request, { params }) {
 
       // Delete lesson quizzes
       await tx.lessonQuiz.deleteMany({
-        where: { lessonId: params.lessonId }
+        where: { lessonId: resolvedParams.lessonId }
       });
 
       // Delete the lesson itself
       await tx.lesson.delete({
-        where: { id: params.lessonId }
+        where: { id: resolvedParams.lessonId }
       });
 
       // Reorder remaining lessons to fill the gap
       await tx.lesson.updateMany({
         where: {
-          unitId: params.unitId,
+          unitId: resolvedParams.unitId,
           order: { gt: existingLesson.order }
         },
         data: {

@@ -124,17 +124,19 @@ model Lesson {
   id          String   @id @default(cuid())
   title       String
   description String?
-  content     String?  @db.Text // HTML content or markdown
-  videoUrl    String?  // Optional video lesson
-  order       Int      // Order within the unit
-  unitId      String
+  content     String?
+  videoUrl    String?
+  duration    Int?     // Add this field
+  order       Int
   isPublished Boolean  @default(false)
+  unitId      String
+  unit        Unit     @relation(fields: [unitId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-
-  unit         Unit          @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  
+  // Add any other existing fields you have
   lessonQuizzes LessonQuiz[]
-
+  
   @@map("lessons")
 }
 
