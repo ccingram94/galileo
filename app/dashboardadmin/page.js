@@ -42,7 +42,7 @@ export default async function AdminDashboard() {
     const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
     const sixtyDaysAgo = new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000);
 
-    // Fetch all courses with enrollment and unit data
+    // Fetch all courses with comprehensive data for management
     const courses = await prisma.course.findMany({
       include: {
         enrollments: {
@@ -66,7 +66,8 @@ export default async function AdminDashboard() {
                 attempts: true
               }
             }
-          }
+          },
+          orderBy: { order: 'asc' }
         }
       },
       orderBy: { createdAt: 'desc' }
@@ -87,7 +88,7 @@ export default async function AdminDashboard() {
       orderBy: { createdAt: 'desc' }
     });
 
-    // Recent enrollments (last 30 days)
+    // Recent enrollments and analytics calculations
     const recentEnrollments = await prisma.enrollment.findMany({
       where: {
         enrolledAt: {
@@ -101,7 +102,6 @@ export default async function AdminDashboard() {
       orderBy: { enrolledAt: 'desc' }
     });
 
-    // Previous period enrollments (30-60 days ago)
     const previousEnrollments = await prisma.enrollment.findMany({
       where: {
         enrolledAt: {
@@ -207,22 +207,8 @@ export default async function AdminDashboard() {
       ];
       if (studentScores.length === 0) return false;
       const avgScore = studentScores.reduce((sum, score) => sum + score, 0) / studentScores.length;
-      return avgScore < 70 && studentScores.length >= 3; // At least 3 attempts with avg < 70%
+      return avgScore < 70 && studentScores.length >= 3;
     }).slice(0, 5);
-
-    // Course completion rates
-    const courseStats = courses.map(course => {
-      const enrollmentCount = course.enrollments.length;
-      const completedEnrollments = course.enrollments.filter(e => e.completedAt).length;
-      const completionRate = enrollmentCount > 0 ? (completedEnrollments / enrollmentCount) * 100 : 0;
-      
-      return {
-        ...course,
-        enrollmentCount,
-        completedEnrollments,
-        completionRate
-      };
-    });
 
     // Recent activity feed
     const recentActivity = [
@@ -392,69 +378,127 @@ export default async function AdminDashboard() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Main Content */}
-            <div className="lg:col-span-2 space-y-8">
-              {/* Course Performance */}
-              <div className="bg-base-100 rounded-box border border-base-300 shadow-xl">
-                <div className="p-6 border-b border-base-300">
+          {/* Course Management Section */}
+          <div className="bg-base-100 rounded-box border border-base-300 shadow-xl mb-8">
+            <div className="p-6 border-b border-base-300">
+              <div className="flex items-center justify-between">
+                <div>
                   <h2 className="text-xl font-bold flex items-center gap-2">
                     <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
-                    Course Performance
+                    Course Management
                   </h2>
-                  <p className="text-base-content/70 mt-1">Overview of all course metrics</p>
+                  <p className="text-base-content/70 mt-1">Manage your courses, content, and structure</p>
                 </div>
-                <div className="p-6">
-                  <div className="space-y-4">
-                    {courseStats.slice(0, 5).map((course) => (
-                      <div key={course.id} className="border border-base-300 rounded-box p-4">
-                        <div className="flex justify-between items-start mb-3">
-                          <div>
-                            <h3 className="font-semibold">{course.title}</h3>
-                            <p className="text-sm text-base-content/70">{course.apExamType}</p>
-                          </div>
-                          <div className="text-right">
-                            <div className={`badge badge-sm ${course.isPublished ? 'badge-success' : 'badge-warning'}`}>
-                              {course.isPublished ? 'Published' : 'Draft'}
+                <Link href="/admin/courses/new" className="btn btn-primary gap-2">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
+                  </svg>
+                  New Course
+                </Link>
+              </div>
+            </div>
+
+            <div className="p-6">
+              <div className="overflow-x-auto">
+                <table className="table w-full">
+                  <thead>
+                    <tr>
+                      <th>Course</th>
+                      <th>Status</th>
+                      <th>Content</th>
+                      <th>Enrollments</th>
+                      <th>Revenue</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {courses.map((course) => {
+                      const totalLessons = course.units.reduce((sum, unit) => sum + unit.lessons.length, 0);
+                      const revenue = course.isFree ? 0 : (course.enrollments.filter(e => e.paymentStatus === 'PAID').length * course.price);
+                      
+                      return (
+                        <tr key={course.id} className="hover">
+                          <td>
+                            <div className="flex items-center gap-3">
+                              <div>
+                                <div className="font-bold">{course.title}</div>
+                                <div className="text-sm opacity-70">{course.apExamType}</div>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                        
-                        <div className="grid grid-cols-3 gap-4 text-sm">
-                          <div>
-                            <p className="text-base-content/70">Enrollments</p>
-                            <p className="font-semibold">{course.enrollmentCount}</p>
-                          </div>
-                          <div>
-                            <p className="text-base-content/70">Completed</p>
-                            <p className="font-semibold">{course.completedEnrollments}</p>
-                          </div>
-                          <div>
-                            <p className="text-base-content/70">Completion Rate</p>
-                            <p className="font-semibold">{course.completionRate.toFixed(1)}%</p>
-                          </div>
-                        </div>
-                        
-                        <div className="mt-3">
-                          <div className="flex justify-between text-xs text-base-content/60 mb-1">
-                            <span>Completion Progress</span>
-                            <span>{course.completionRate.toFixed(1)}%</span>
-                          </div>
-                          <progress 
-                            className="progress progress-primary w-full" 
-                            value={course.completionRate} 
-                            max="100"
-                          ></progress>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                          </td>
+                          <td>
+                            <div className="flex flex-col gap-1">
+                              <div className={`badge ${course.isPublished ? 'badge-success' : 'badge-warning'}`}>
+                                {course.isPublished ? 'Published' : 'Draft'}
+                              </div>
+                              {course.isFree ? (
+                                <div className="badge badge-info badge-sm">Free</div>
+                              ) : (
+                                <div className="badge badge-accent badge-sm">{formatCurrency(course.price)}</div>
+                              )}
+                            </div>
+                          </td>
+                          <td>
+                            <div className="text-sm">
+                              <div>{course.units.length} Units</div>
+                              <div className="opacity-70">{totalLessons} Lessons</div>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="text-sm">
+                              <div className="font-semibold">{course.enrollments.length}</div>
+                              <div className="opacity-70">students</div>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="text-sm">
+                              <div className="font-semibold">{formatCurrency(revenue)}</div>
+                              <div className="opacity-70">total</div>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="flex gap-2">
+                              <Link 
+                                href={`/admin/courses/${course.id}/edit`}
+                                className="btn btn-ghost btn-xs"
+                              >
+                                Edit
+                              </Link>
+                              <Link 
+                                href={`/admin/courses/${course.id}/content`}
+                                className="btn btn-ghost btn-xs"
+                              >
+                                Content
+                              </Link>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
               </div>
 
-              {/* Recent Activity */}
+              {courses.length === 0 && (
+                <div className="text-center py-12">
+                  <svg className="w-16 h-16 text-base-content/30 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                  <h3 className="text-lg font-semibold text-base-content/70 mb-2">No courses found</h3>
+                  <p className="text-base-content/50 mb-4">Create your first course to get started</p>
+                  <Link href="/admin/courses/new" className="btn btn-primary">
+                    Create First Course
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Recent Activity */}
+            <div className="lg:col-span-2">
               <div className="bg-base-100 rounded-box border border-base-300 shadow-xl">
                 <div className="p-6 border-b border-base-300">
                   <h2 className="text-xl font-bold flex items-center gap-2">
@@ -539,13 +583,6 @@ export default async function AdminDashboard() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
                     </svg>
                     Manage Students
-                  </Link>
-                  
-                  <Link href="/admin/courses" className="btn btn-outline btn-accent btn-sm w-full justify-start gap-2">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                    Manage Courses
                   </Link>
                   
                   <Link href="/admin/analytics" className="btn btn-outline btn-info btn-sm w-full justify-start gap-2">
