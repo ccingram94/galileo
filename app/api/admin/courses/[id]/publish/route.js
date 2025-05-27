@@ -12,6 +12,9 @@ export async function PATCH(request, { params }) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Await params before using its properties
+    const resolvedParams = await params;
+
     const user = await prisma.user.findUnique({
       where: { id: session.user.id }
     });
@@ -23,7 +26,7 @@ export async function PATCH(request, { params }) {
     const { isPublished } = await request.json();
 
     const course = await prisma.course.findUnique({
-      where: { id: params.id },
+      where: { id: resolvedParams.id }, // Use resolvedParams.id instead of params.id
       include: {
         units: {
           include: {
@@ -46,7 +49,7 @@ export async function PATCH(request, { params }) {
     }
 
     const updatedCourse = await prisma.course.update({
-      where: { id: params.id },
+      where: { id: resolvedParams.id }, // Use resolvedParams.id instead of params.id
       data: { isPublished }
     });
 

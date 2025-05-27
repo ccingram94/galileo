@@ -131,10 +131,13 @@ export default async function AdminCoursesPage() {
                 {courses.map((course) => {
                   const totalUnits = course.units.length;
                   const totalLessons = course.units.reduce((sum, unit) => sum + unit.lessons.length, 0);
+                  
+                  // Fix: Check if lessonQuizzes exists (it's a single object, not an array)
                   const totalQuizzes = course.units.reduce((sum, unit) => 
                     sum + unit.lessons.reduce((lessonSum, lesson) => 
-                      lessonSum + lesson.lessonQuizzes.length, 0), 0);
-                  const totalExams = course.units.reduce((sum, unit) => sum + unit.unitExams.length, 0);
+                      lessonSum + (lesson.lessonQuizzes ? 1 : 0), 0), 0);
+                  
+                  const totalExams = course.units.reduce((sum, unit) => sum + (unit.unitExams?.length || 0), 0);
                   const paidEnrollments = course.enrollments.filter(e => e.paymentStatus === 'PAID').length;
                   const revenue = course.isFree ? 0 : (paidEnrollments * (course.price || 0));
 
