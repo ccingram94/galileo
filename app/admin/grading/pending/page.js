@@ -1,6 +1,5 @@
 import { notFound, redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { auth } from '@/auth';
 import { PrismaClient } from '@prisma/client';
 import Link from 'next/link';
 
@@ -47,7 +46,7 @@ function formatTimeAgo(date) {
 
 export default async function PendingGradingPage({ searchParams }) {
   const resolvedSearchParams = await searchParams;
-  const session = await getServerSession(authOptions);
+  const session = await auth()
   
   if (!session?.user || session.user.role !== 'ADMIN') {
     redirect('/auth/signin');
@@ -596,7 +595,7 @@ export default async function PendingGradingPage({ searchParams }) {
                   </div>
                 ))
               ) : (
-                <div className="p-12 text-center">
+                <div className="p-12 text-center"> 
                   <div className="w-16 h-16 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <svg className="w-8 h-8 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />

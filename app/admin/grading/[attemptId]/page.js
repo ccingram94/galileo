@@ -1,6 +1,5 @@
 import { notFound, redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { auth } from '@/auth';
 import { PrismaClient } from '@prisma/client';
 import Link from 'next/link';
 import GradingInterface from './GradingInterface';
@@ -32,7 +31,7 @@ export async function generateMetadata({ params }) {
 
 export default async function IndividualGradingPage({ params }) {
   const resolvedParams = await params;
-  const session = await getServerSession(authOptions);
+  const session = await auth()
   
   if (!session?.user || !['ADMIN', 'INSTRUCTOR'].includes(session.user.role)) {
     redirect('/auth/signin');
@@ -369,7 +368,7 @@ export default async function IndividualGradingPage({ params }) {
                   {currentScore >= attempt.unitExam.passingScore ? 'Passing' : 'Not Passing'}
                 </div>
               </div>
-            </div>
+            </div> 
             
             <div className="stats shadow border border-base-300 bg-base-100">
               <div className="stat p-4">

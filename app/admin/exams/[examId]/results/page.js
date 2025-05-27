@@ -1,6 +1,5 @@
 import { notFound, redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { auth } from '@/auth';
 import { PrismaClient } from '@prisma/client';
 import Link from 'next/link';
 import ExamResultsInterface from './ExamResultsInterface';
@@ -102,7 +101,7 @@ function calculateGradingWorkload(attempts, questions) {
 export default async function ExamResultsPage({ params, searchParams }) {
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
-  const session = await getServerSession(authOptions);
+  const session = await auth()
   
   if (!session?.user || !['ADMIN', 'INSTRUCTOR'].includes(session.user.role)) {
     redirect('/auth/signin');
@@ -533,7 +532,7 @@ export default async function ExamResultsPage({ params, searchParams }) {
 
           {/* Main Results Interface */}
           <ExamResultsInterface 
-            initialData={examData}
+            initialData={examData} 
           />
           
         </div>

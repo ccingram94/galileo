@@ -1,14 +1,13 @@
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '../../../../../../../../auth/[...nextauth]/route';
+import { auth } from '@/auth';
 
 const prisma = new PrismaClient();
 
 // GET - Get a specific exam with full details
 export async function GET(request, { params }) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await auth()
     
     if (!session || session.user.role !== 'ADMIN') {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -642,7 +641,7 @@ function calculateTotalPoints(questions) {
     }
     
     if (questions.freeResponse) {
-      if (questions.freeResponse.partA) {
+      if (questions.freeResponse.partA) { 
         questions.freeResponse.partA.forEach(q => {
           if (q.parts && Array.isArray(q.parts)) {
             q.parts.forEach(part => {
