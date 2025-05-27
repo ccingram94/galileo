@@ -1,8 +1,8 @@
 import { notFound, redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { auth } from '@/auth';
 import { PrismaClient } from '@prisma/client';
 import Link from 'next/link';
+import CourseFilters from './CourseFilters';
 
 const prisma = new PrismaClient();
 
@@ -128,7 +128,7 @@ function getRecentActivity(units) {
 
 export default async function MyCoursesPage({ searchParams }) {
   const resolvedSearchParams = await searchParams;
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   
   if (!session?.user) {
     redirect('/auth/signin');
@@ -389,67 +389,7 @@ export default async function MyCoursesPage({ searchParams }) {
           </div>
 
           {/* Filters and Sort */}
-          <div className="bg-base-100 rounded-box border border-base-300 shadow-lg mb-6">
-            <div className="p-6">
-              <h2 className="text-lg font-bold mb-4">Filter & Sort</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Status Filter */}
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text font-medium">Status</span>
-                  </label>
-                  <select 
-                    className="select select-bordered"
-                    value={statusFilter}
-                    onChange={(e) => {
-                      const params = new URLSearchParams(resolvedSearchParams);
-                      params.set('status', e.target.value);
-                      window.location.href = `/student/my-courses?${params.toString()}`;
-                    }}
-                  >
-                    <option value="all">All Statuses</option>
-                    <option value="not-started">Not Started</option>
-                    <option value="in-progress">In Progress</option>
-                    <option value="completed">Completed</option>
-                  </select>
-                </div>
-
-                {/* Sort Options */}
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text font-medium">Sort By</span>
-                  </label>
-                  <select 
-                    className="select select-bordered"
-                    value={sortBy}
-                    onChange={(e) => {
-                      const params = new URLSearchParams(resolvedSearchParams);
-                      params.set('sort', e.target.value);
-                      window.location.href = `/student/my-courses?${params.toString()}`;
-                    }}
-                  >
-                    <option value="recent">Recently Enrolled</option>
-                    <option value="name">Course Name</option>
-                    <option value="progress">Progress</option>
-                  </select>
-                </div>
-              </div>
-              
-              {(statusFilter !== 'all' || sortBy !== 'recent') && (
-                <div className="mt-4">
-                  <Link 
-                    href="/student/my-courses"
-                    className="btn btn-ghost btn-sm gap-2"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                    Reset Filters
-                  </Link>
-                </div>
-              )}
-            </div>
-          </div>
+          <CourseFilters />
 
           {/* Quick Actions */}
           {overallStats.totalAvailableExams > 0 && (

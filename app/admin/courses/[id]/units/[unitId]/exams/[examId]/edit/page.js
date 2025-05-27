@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { PrismaClient } from '@prisma/client';
 import Link from 'next/link';
-import ExamForm from '../../../new/ExamForm';
+import ExamForm from './ExamForm';
 
 const prisma = new PrismaClient();
 

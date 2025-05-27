@@ -97,11 +97,11 @@ export default async function Dashboard() {
       take: 10
     });
 
-    // Fetch exam attempts
+    // 🔧 FIX: Change 'exam' to 'unitExam' to match the schema
     const examAttempts = await prisma.examAttempt.findMany({
       where: { userId },
       include: {
-        exam: {
+        unitExam: {  // ✅ Changed from 'exam' to 'unitExam'
           include: {
             unit: {
               include: {
@@ -242,6 +242,7 @@ export default async function Dashboard() {
       if (attempt.timeSpent) totalTimeSpent += attempt.timeSpent;
     });
 
+    // 🔧 FIX: Update to use unitExam instead of exam
     examAttempts.forEach(attempt => {
       if (attempt.score !== null) allScores.push(attempt.score);
       if (attempt.timeUsed) totalTimeSpent += attempt.timeUsed * 60; // Convert minutes to seconds
@@ -284,7 +285,7 @@ export default async function Dashboard() {
       if (currentUnit) break;
     }
 
-    // Build recent activity (combining quizzes and exams)
+    // 🔧 FIX: Update recent activity to use unitExam
     const recentActivity = [
       ...quizAttempts.slice(0, 3).map(attempt => ({
         type: 'quiz',

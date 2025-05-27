@@ -233,7 +233,7 @@ export default async function CourseContentPage({ params }) {
                                   </Link>
                                 ) : (
                                   <Link 
-                                    href={`/admin/courses/${course.id}/units/${unit.id}/lessons/${lesson.id}/quiz/new`}
+                                    href={`/admin/courses/${course.id}/units/${unit.id}/lessons/${lesson.id}/quiz/create`}
                                     className="btn btn-ghost btn-xs"
                                   >
                                     Add Quiz
