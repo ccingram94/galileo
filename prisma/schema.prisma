@@ -60,13 +60,17 @@ model User {
   enrollments   Enrollment[]
   examAttempts  ExamAttempt[]
   quizAttempts  QuizAttempt[]
+  
+  // Add grading relations
+  gradedAttempts    ExamAttempt[]  @relation("GradedAttempts")
+  gradedResponses   ExamResponse[] @relation("GradedResponses")
 }
 
 model Course {
   id          String       @id @default(cuid())
   title       String
   description String?
-  apExamType  String
+  apExamType  String?
   isPublished Boolean      @default(false)
   isFree      Boolean      @default(false)
   price       Float?
@@ -133,14 +137,11 @@ model UnitExam {
   title       String
   description String?
   unitId      String
-  
-  // Add the missing order field
   order       Int      @default(1)
   
   // Exam Structure and Content
   examType    ExamType @default(UNIT_ASSESSMENT)
   instructions String?
-  questions   Json
   
   // Timing Configuration
   timeLimit                Int?
@@ -176,8 +177,86 @@ model UnitExam {
 
   unit        Unit          @relation(fields: [unitId], references: [id], onDelete: Cascade)
   attempts    ExamAttempt[]
+  questions   ExamQuestion[]
 
   @@map("unit_exams")
+}
+
+// NEW: Separate model for exam questions to support detailed grading
+model ExamQuestion {
+  id          String      @id @default(cuid())
+  examId      String
+  type        QuestionType
+  title       String?
+  question    String
+  options     Json?       // For multiple choice options
+  correctAnswer Json?     // Correct answer(s)
+  explanation String?
+  points      Float       @default(1)
+  order       Int
+  rubric      Json?       // Grading rubric for FR questions
+  tags        String[]    @default([])
+  difficulty  String?     // easy, medium, hard
+  
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  
+  exam        UnitExam    @relation(fields: [examId], references: [id], onDelete: Cascade)
+  responses   ExamResponse[]
+
+  @@map("exam_questions")
+}
+
+model ExamAttempt {
+  id          String   @id @default(cuid())
+  userId      String
+  unitExamId  String
+  startedAt   DateTime @default(now())
+  completedAt DateTime?
+  timeUsed    Int?     // in minutes
+  score       Float?
+  passed      Boolean  @default(false)
+  
+  // Add grading fields
+  gradingStatus     String   @default("pending")     // pending, in_progress, completed
+  gradedAt          DateTime?
+  gradedBy          String?
+  instructorFeedback String?
+  needsReview       Boolean  @default(false)
+  autoGradedScore   Float?   // MC score
+  manualGradedScore Float?   // FR score
+  
+  unitExam    UnitExam  @relation(fields: [unitExamId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  grader      User?     @relation("GradedAttempts", fields: [gradedBy], references: [id])
+  responses   ExamResponse[]
+
+  @@map("exam_attempts")
+}
+
+// NEW: Individual responses to exam questions for detailed grading
+model ExamResponse {
+  id           String   @id @default(cuid())
+  attemptId    String
+  questionId   String
+  answer       Json?
+  isCorrect    Boolean?
+  pointsEarned Float?
+  createdAt    DateTime @default(now())
+  
+  // Add grading fields for FR questions
+  gradingStatus      String   @default("pending")    // pending, graded
+  instructorScore    Float?
+  instructorFeedback String?
+  rubricUsed         Json?
+  gradedAt           DateTime?
+  gradedBy           String?
+  
+  attempt      ExamAttempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question     ExamQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  grader       User?        @relation("GradedResponses", fields: [gradedBy], references: [id])
+
+  @@map("exam_responses")
 }
 
 model Enrollment {
@@ -211,24 +290,9 @@ model QuizAttempt {
   @@map("quiz_attempts")
 }
 
-model ExamAttempt {
-  id          String    @id @default(cuid())
-  userId      String
-  unitExamId  String
-  answers     Json
-  score       Float
-  passed      Boolean
-  timeSpent   Int?
-  startedAt   DateTime  @default(now())
-  completedAt DateTime?
-  unitExam    UnitExam  @relation(fields: [unitExamId], references: [id], onDelete: Cascade)
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("exam_attempts")
-}
-
 enum Role {
   STUDENT
+  INSTRUCTOR
   ADMIN
 }
 
@@ -245,4 +309,12 @@ enum ExamType {
   FINAL
   PRACTICE
   AP_MOCK
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  TRUE_FALSE
+  FREE_RESPONSE
+  ESSAY
+  SHORT_ANSWER
 }
