@@ -31,6 +31,27 @@ export default async function CourseContentPage({ params }) {
       notFound();
     }
 
+    // Safe calculation functions with null checks
+    const getTotalLessons = () => {
+      return course.units?.reduce((sum, unit) => {
+        return sum + (unit.lessons?.length || 0);
+      }, 0) || 0;
+    };
+
+    const getTotalQuizzes = () => {
+      return course.units?.reduce((sum, unit) => {
+        return sum + (unit.lessons?.reduce((lessonSum, lesson) => {
+          return lessonSum + (lesson.lessonQuizzes?.length || 0);
+        }, 0) || 0);
+      }, 0) || 0;
+    };
+
+    const getTotalExams = () => {
+      return course.units?.reduce((sum, unit) => {
+        return sum + (unit.unitExams?.length || 0);
+      }, 0) || 0;
+    };
+
     return (
       <div className="space-y-6">
         {/* Header */}
@@ -61,26 +82,24 @@ export default async function CourseContentPage({ params }) {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="bg-base-100 rounded-box border border-base-300 p-4">
             <div className="text-sm font-medium text-base-content/70">Units</div>
-            <div className="text-2xl font-bold text-primary">{course.units.length}</div>
+            <div className="text-2xl font-bold text-primary">{course.units?.length || 0}</div>
           </div>
           <div className="bg-base-100 rounded-box border border-base-300 p-4">
             <div className="text-sm font-medium text-base-content/70">Lessons</div>
             <div className="text-2xl font-bold text-secondary">
-              {course.units.reduce((sum, unit) => sum + unit.lessons.length, 0)}
+              {getTotalLessons()}
             </div>
           </div>
           <div className="bg-base-100 rounded-box border border-base-300 p-4">
             <div className="text-sm font-medium text-base-content/70">Quizzes</div>
             <div className="text-2xl font-bold text-accent">
-              {course.units.reduce((sum, unit) => 
-                sum + unit.lessons.reduce((lessonSum, lesson) => 
-                  lessonSum + lesson.lessonQuizzes.length, 0), 0)}
+              {getTotalQuizzes()}
             </div>
           </div>
           <div className="bg-base-100 rounded-box border border-base-300 p-4">
             <div className="text-sm font-medium text-base-content/70">Exams</div>
             <div className="text-2xl font-bold text-info">
-              {course.units.reduce((sum, unit) => sum + unit.unitExams.length, 0)}
+              {getTotalExams()}
             </div>
           </div>
         </div>
@@ -94,7 +113,7 @@ export default async function CourseContentPage({ params }) {
             </p>
           </div>
           <div className="p-6">
-            {course.units.length > 0 ? (
+            {course.units && course.units.length > 0 ? (
               <div className="space-y-4">
                 {course.units.map((unit, unitIndex) => (
                   <div key={unit.id} className="border border-base-300 rounded-box">
@@ -114,10 +133,10 @@ export default async function CourseContentPage({ params }) {
                         </div>
                         <div className="flex items-center gap-2">
                           <div className="badge badge-ghost">
-                            {unit.lessons.length} lessons
+                            {unit.lessons?.length || 0} lessons
                           </div>
                           <div className="badge badge-ghost">
-                            {unit.unitExams.length} exams
+                            {unit.unitExams?.length || 0} exams
                           </div>
                           <div className="dropdown dropdown-left">
                             <label tabIndex={0} className="btn btn-ghost btn-sm">
@@ -173,7 +192,7 @@ export default async function CourseContentPage({ params }) {
                     </div>
 
                     {/* Lessons */}
-                    {unit.lessons.length > 0 && (
+                    {unit.lessons && unit.lessons.length > 0 && (
                       <div className="p-4">
                         <h4 className="font-medium text-base-content/70 mb-3">Lessons</h4>
                         <div className="space-y-2">
@@ -189,7 +208,7 @@ export default async function CourseContentPage({ params }) {
                                     <span className={`badge badge-xs ${lesson.isPublished ? 'badge-success' : 'badge-warning'}`}>
                                       {lesson.isPublished ? 'Published' : 'Draft'}
                                     </span>
-                                    {lesson.lessonQuizzes.length > 0 && (
+                                    {lesson.lessonQuizzes && lesson.lessonQuizzes.length > 0 && (
                                       <span className="badge badge-xs badge-accent">Has Quiz</span>
                                     )}
                                     {lesson.videoUrl && (
@@ -205,12 +224,19 @@ export default async function CourseContentPage({ params }) {
                                 >
                                   Edit
                                 </Link>
-                                {lesson.lessonQuizzes.length > 0 && (
+                                {lesson.lessonQuizzes && lesson.lessonQuizzes.length > 0 ? (
                                   <Link 
                                     href={`/admin/courses/${course.id}/units/${unit.id}/lessons/${lesson.id}/quiz/edit`}
                                     className="btn btn-ghost btn-xs"
                                   >
                                     Quiz
+                                  </Link>
+                                ) : (
+                                  <Link 
+                                    href={`/admin/courses/${course.id}/units/${unit.id}/lessons/${lesson.id}/quiz/new`}
+                                    className="btn btn-ghost btn-xs"
+                                  >
+                                    Add Quiz
                                   </Link>
                                 )}
                               </div>
@@ -221,7 +247,7 @@ export default async function CourseContentPage({ params }) {
                     )}
 
                     {/* Unit Exams */}
-                    {unit.unitExams.length > 0 && (
+                    {unit.unitExams && unit.unitExams.length > 0 && (
                       <div className="p-4 border-t border-base-300">
                         <h4 className="font-medium text-base-content/70 mb-3">Unit Exams</h4>
                         <div className="space-y-2">
@@ -265,6 +291,29 @@ export default async function CourseContentPage({ params }) {
                         </div>
                       </div>
                     )}
+
+                    {/* Show options to add content if sections are empty */}
+                    {(!unit.lessons || unit.lessons.length === 0) && (!unit.unitExams || unit.unitExams.length === 0) && (
+                      <div className="p-4">
+                        <div className="text-center py-8 text-base-content/50">
+                          <p className="mb-4">This unit is empty</p>
+                          <div className="flex gap-2 justify-center">
+                            <Link 
+                              href={`/admin/courses/${course.id}/units/${unit.id}/lessons/new`}
+                              className="btn btn-ghost btn-sm"
+                            >
+                              Add First Lesson
+                            </Link>
+                            <Link 
+                              href={`/admin/courses/${course.id}/units/${unit.id}/exams/new`}
+                              className="btn btn-ghost btn-sm"
+                            >
+                              Add Unit Exam
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -291,6 +340,12 @@ export default async function CourseContentPage({ params }) {
       <div className="text-center py-12">
         <h1 className="text-2xl font-bold text-error mb-2">Error Loading Content</h1>
         <p className="text-base-content/70">Failed to load course content.</p>
+        <details className="mt-4">
+          <summary className="cursor-pointer text-sm text-base-content/50">Technical Details</summary>
+          <pre className="text-xs text-left mt-2 p-2 bg-base-200 rounded">
+            {error.message}
+          </pre>
+        </details>
       </div>
     );
   } finally {

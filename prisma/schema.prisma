@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,22 +7,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// ========== EXISTING NEXTAUTH MODELS (UNCHANGED) ==========
 model Account {
   id                String  @id @default(cuid())
   userId            String
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -49,110 +41,89 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-// ========== ENHANCED USER MODEL ==========
 model User {
-  id            String    @id @default(cuid())
+  id            String        @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?       @unique
   emailVerified DateTime?
   image         String?
-  
-  // Existing NextAuth relations
+  createdAt     DateTime      @default(now())
+  dateOfBirth   DateTime?
+  gradeLevel    String?
+  parentEmail   String?
+  phone         String?
+  role          Role          @default(STUDENT)
+  school        String?
+  updatedAt     DateTime      @updatedAt
   accounts      Account[]
   sessions      Session[]
-  
-  // NEW: LMS-specific fields
-  role          Role      @default(STUDENT)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  
-  // NEW: LMS relations
   enrollments   Enrollment[]
-  quizAttempts  QuizAttempt[]
   examAttempts  ExamAttempt[]
-  
-  // Optional: Additional profile fields for your teaching business
-  phone         String?
-  dateOfBirth   DateTime?
-  school        String?
-  gradeLevel    String?
-  parentEmail   String?   // For minors
-}
-
-// ========== NEW LMS MODELS ==========
-
-enum Role {
-  STUDENT
-  ADMIN
+  quizAttempts  QuizAttempt[]
 }
 
 model Course {
-  id          String   @id @default(cuid())
+  id          String       @id @default(cuid())
   title       String
   description String?
-  apExamType  String   // e.g., "AP-CALCULUS-AB", "AP-BIOLOGY"
-  isPublished Boolean  @default(false)
-  isFree      Boolean  @default(false)
-  price       Float?   // null for free courses
-  imageUrl    String?  // Course thumbnail
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  units       Unit[]
+  apExamType  String
+  isPublished Boolean      @default(false)
+  isFree      Boolean      @default(false)
+  price       Float?
+  imageUrl    String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   enrollments Enrollment[]
+  units       Unit[]
 
   @@map("courses")
 }
 
 model Unit {
-  id          String   @id @default(cuid())
+  id          String     @id @default(cuid())
   title       String
   description String?
-  order       Int      // Order within the course
+  order       Int
   courseId    String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  course      Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   lessons     Lesson[]
   unitExams   UnitExam[]
+  course      Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@map("units")
 }
 
 model Lesson {
-  id          String   @id @default(cuid())
-  title       String
-  description String?
-  content     String?
-  videoUrl    String?
-  duration    Int?     // Add this field
-  order       Int
-  isPublished Boolean  @default(false)
-  unitId      String
-  unit        Unit     @relation(fields: [unitId], references: [id], onDelete: Cascade)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  
-  // Add any other existing fields you have
-  lessonQuizzes LessonQuiz[]
-  
+  id            String      @id @default(cuid())
+  title         String
+  description   String?
+  content       String?
+  videoUrl      String?
+  order         Int
+  unitId        String
+  isPublished   Boolean     @default(false)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  duration      Int?
+  lessonQuizzes LessonQuiz?
+  unit          Unit        @relation(fields: [unitId], references: [id], onDelete: Cascade)
+
   @@map("lessons")
 }
 
 model LessonQuiz {
-  id          String   @id @default(cuid())
-  title       String
-  description String?
-  lessonId    String   @unique // One quiz per lesson
-  questions   Json     // Array of quiz questions with answers
-  passingScore Int     @default(70) // Percentage needed to pass
-  isPublished Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  lesson      Lesson        @relation(fields: [lessonId], references: [id], onDelete: Cascade)
-  attempts    QuizAttempt[]
+  id           String        @id @default(cuid())
+  title        String
+  description  String?
+  lessonId     String        @unique
+  questions    Json
+  passingScore Int           @default(70)
+  isPublished  Boolean       @default(false)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  lesson       Lesson        @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  attempts     QuizAttempt[]
 
   @@map("lesson_quizzes")
 }
@@ -162,9 +133,43 @@ model UnitExam {
   title       String
   description String?
   unitId      String
-  questions   Json     // Array of exam questions with answers
-  passingScore Int     @default(70)
-  timeLimit   Int?     // Time limit in minutes
+  
+  // Add the missing order field
+  order       Int      @default(1)
+  
+  // Exam Structure and Content
+  examType    ExamType @default(UNIT_ASSESSMENT)
+  instructions String?
+  questions   Json
+  
+  // Timing Configuration
+  timeLimit                Int?
+  allowTimeExtensions      Boolean @default(false)
+  
+  // Exam Structure Configuration
+  structure               Json?    // Stores MC/FR part configuration
+  
+  // Scoring Configuration
+  passingScore            Int      @default(70)
+  totalPoints             Int?
+  multipleChoiceWeight    Float    @default(0.6)
+  freeResponseWeight      Float    @default(0.4)
+  apStyleScoring          Boolean  @default(false)
+  allowPartialCredit      Boolean  @default(true)
+  
+  // Exam Behavior Settings
+  maxAttempts             Int      @default(1)
+  shuffleQuestions        Boolean  @default(false)
+  shuffleOptions          Boolean  @default(true)
+  showCorrectAnswers      Boolean  @default(false)
+  allowReviewAfterSubmission Boolean @default(true)
+  
+  // Availability Settings
+  availableFrom           DateTime?
+  availableUntil          DateTime?
+  requiresProctoring      Boolean  @default(false)
+  
+  // Publishing
   isPublished Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -176,61 +181,68 @@ model UnitExam {
 }
 
 model Enrollment {
-  id         String    @id @default(cuid())
-  userId     String
-  courseId   String
-  enrolledAt DateTime  @default(now())
-  completedAt DateTime?
-  progress   Json?     // Track progress through units/lessons
-  
-  // Payment tracking for paid courses
+  id            String        @id @default(cuid())
+  userId        String
+  courseId      String
+  enrolledAt    DateTime      @default(now())
+  completedAt   DateTime?
+  progress      Json?
   paymentStatus PaymentStatus @default(PENDING)
-  paymentId     String?       // Stripe payment ID or similar
-
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  paymentId     String?
+  course        Course        @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, courseId])
   @@map("enrollments")
 }
 
 model QuizAttempt {
-  id           String   @id @default(cuid())
+  id           String     @id @default(cuid())
   userId       String
   lessonQuizId String
-  answers      Json     // User's answers
-  score        Float    // Percentage score
+  answers      Json
+  score        Float
   passed       Boolean
-  timeSpent    Int?     // Time spent in seconds
-  completedAt  DateTime @default(now())
-
-  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  timeSpent    Int?
+  completedAt  DateTime   @default(now())
   lessonQuiz   LessonQuiz @relation(fields: [lessonQuizId], references: [id], onDelete: Cascade)
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("quiz_attempts")
 }
 
 model ExamAttempt {
-  id         String   @id @default(cuid())
-  userId     String
-  unitExamId String
-  answers    Json     // User's answers
-  score      Float    // Percentage score
-  passed     Boolean
-  timeSpent  Int?     // Time spent in seconds
-  startedAt  DateTime @default(now())
+  id          String    @id @default(cuid())
+  userId      String
+  unitExamId  String
+  answers     Json
+  score       Float
+  passed      Boolean
+  timeSpent   Int?
+  startedAt   DateTime  @default(now())
   completedAt DateTime?
-
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  unitExam   UnitExam @relation(fields: [unitExamId], references: [id], onDelete: Cascade)
+  unitExam    UnitExam  @relation(fields: [unitExamId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("exam_attempts")
 }
 
-// Additional enums
+enum Role {
+  STUDENT
+  ADMIN
+}
+
 enum PaymentStatus {
   PENDING
   PAID
   FAILED
   REFUNDED
+}
+
+enum ExamType {
+  UNIT_ASSESSMENT
+  MIDTERM
+  FINAL
+  PRACTICE
+  AP_MOCK
 }
