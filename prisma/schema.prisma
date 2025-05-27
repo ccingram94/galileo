@@ -75,6 +75,17 @@ model Course {
   isFree      Boolean      @default(false)
   price       Float?
   imageUrl    String?
+  
+  // Delivery method availability
+  selfPacedAvailable Boolean @default(true)
+  tutorAvailable     Boolean @default(true)
+  groupAvailable     Boolean @default(true)
+  
+  // Pricing for different delivery methods
+  selfPacedPrice     Float?
+  tutorHourlyRate    Float?
+  groupHourlyRate    Float?
+  
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
   enrollments Enrollment[]
@@ -99,37 +110,209 @@ model Unit {
 }
 
 model Lesson {
-  id            String      @id @default(cuid())
+  id            String           @id @default(cuid())
   title         String
   description   String?
-  content       String?
-  videoUrl      String?
   order         Int
   unitId        String
-  isPublished   Boolean     @default(false)
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  duration      Int?
-  lessonQuizzes LessonQuiz?
-  unit          Unit        @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  isPublished   Boolean          @default(false)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  
+  // Core lesson metadata
+  estimatedDuration Int?           // in minutes
+  difficultyLevel   String?        // beginner, intermediate, advanced
+  prerequisites     String[]       @default([])
+  keywords          String[]       @default([])
+  
+  // Essential pedagogical components
+  essentialQuestions String[]       @default([]) // Key questions that drive learning
+  learningObjectives String[]       @default([]) // What students will achieve
+  
+  // Delivery method settings
+  selfPacedEnabled  Boolean        @default(true)
+  tutorEnabled      Boolean        @default(true)
+  groupEnabled      Boolean        @default(true)
+  
+  // Instructor guidance
+  instructorNotes   String?        // Teaching tips, common misconceptions, etc.
+  suggestedPacing   Json?          // Time allocation for different activities
+  
+  // Relations
+  unit              Unit           @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  vocabulary        LessonVocabulary[]
+  contentBlocks     ContentBlock[]
+  examples          LessonExample[]
+  lessonQuiz        LessonQuiz?
+  resources         LessonResource[]
 
   @@map("lessons")
 }
 
+// Key vocabulary terms for the lesson
+model LessonVocabulary {
+  id          String   @id @default(cuid())
+  lessonId    String
+  term        String
+  definition  String
+  example     String?  // Example usage or context
+  order       Int
+  
+  // Additional learning aids
+  pronunciation String? // For complex terms
+  etymology     String? // Word origin (helpful for STEM terms)
+  relatedTerms  String[] @default([]) // Connected vocabulary
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@map("lesson_vocabulary")
+}
+
+// Modular content blocks for the main lesson content
+model ContentBlock {
+  id          String      @id @default(cuid())
+  lessonId    String
+  title       String
+  type        ContentType
+  order       Int
+  
+  // Content data
+  content     String?     // Text content, HTML, markdown
+  videoUrl    String?     // Video content URL
+  metadata    Json?       // Type-specific data (timestamps, interactive elements)
+  
+  // Pedagogical settings
+  isRequired  Boolean     @default(true)
+  
+  // Delivery method visibility
+  showInSelfPaced Boolean  @default(true)
+  showInTutor     Boolean  @default(true)
+  showInGroup     Boolean  @default(true)
+  
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  
+  lesson      Lesson      @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@map("content_blocks")
+}
+
+// Example exercises within the lesson
+model LessonExample {
+  id              String       @id @default(cuid())
+  lessonId        String
+  title           String
+  description     String?
+  order           Int
+  
+  // Exercise content
+  problemStatement String       // The problem/question
+  solution        String        // Step-by-step solution
+  explanation     String?       // Additional explanation of concepts used
+  
+  // Exercise metadata
+  difficulty      String?       // easy, medium, hard
+  estimatedTime   Int?          // minutes to solve
+  concepts        String[]      @default([]) // Concepts this example reinforces
+  
+  // Media attachments
+  imageUrl        String?       // Diagrams, graphs, etc.
+  videoUrl        String?       // Solution walkthrough video
+  
+  // Delivery method customization
+  selfPacedNotes  String?       // For self-paced learners
+  tutorNotes      String?       // For tutor sessions
+  groupNotes      String?       // For group classes
+  
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  
+  lesson          Lesson       @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@map("lesson_examples")
+}
+
+// Enhanced lesson quiz model
 model LessonQuiz {
   id           String        @id @default(cuid())
-  title        String
+  title        String        @default("Lesson Quiz")
   description  String?
   lessonId     String        @unique
-  questions    Json
+  
+  // Quiz configuration
   passingScore Int           @default(70)
+  timeLimit    Int?          // minutes (optional)
+  maxAttempts  Int           @default(3)
+  
+  // Question management
+  randomizeQuestions Boolean  @default(false)
+  showFeedback      Boolean  @default(true)
+  showCorrectAnswers Boolean @default(true)
+  
   isPublished  Boolean       @default(false)
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
+  
   lesson       Lesson        @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  questions    QuizQuestion[]
   attempts     QuizAttempt[]
 
   @@map("lesson_quizzes")
+}
+
+// Individual quiz questions
+model QuizQuestion {
+  id           String       @id @default(cuid())
+  quizId       String
+  question     String
+  type         QuizQuestionType
+  order        Int
+  points       Float        @default(1)
+  
+  // Question content
+  options      Json?        // For multiple choice/true-false
+  correctAnswer Json        // Correct answer(s)
+  explanation  String?      // Explanation of the correct answer
+  
+  // Question metadata
+  difficulty   String?      // easy, medium, hard
+  concepts     String[]     @default([]) // Concepts being tested
+  
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  
+  quiz         LessonQuiz   @relation(fields: [quizId], references: [id], onDelete: Cascade)
+
+  @@map("quiz_questions")
+}
+
+// Supporting resources and materials
+model LessonResource {
+  id          String       @id @default(cuid())
+  lessonId    String
+  title       String
+  description String?
+  type        ResourceType
+  url         String?      // For external resources
+  fileUrl     String?      // For uploaded files
+  content     String?      // For text resources
+  order       Int
+  isRequired  Boolean      @default(false)
+  
+  // Delivery method visibility
+  availableInSelfPaced Boolean @default(true)
+  availableInTutor     Boolean @default(true)
+  availableInGroup     Boolean @default(true)
+  
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  
+  lesson      Lesson       @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@map("lesson_resources")
 }
 
 model UnitExam {
@@ -182,7 +365,7 @@ model UnitExam {
   @@map("unit_exams")
 }
 
-// NEW: Separate model for exam questions to support detailed grading
+// Separate model for exam questions to support detailed grading
 model ExamQuestion {
   id          String      @id @default(cuid())
   examId      String
@@ -234,7 +417,7 @@ model ExamAttempt {
   @@map("exam_attempts")
 }
 
-// NEW: Individual responses to exam questions for detailed grading
+// Individual responses to exam questions for detailed grading
 model ExamResponse {
   id           String   @id @default(cuid())
   attemptId    String
@@ -260,30 +443,47 @@ model ExamResponse {
 }
 
 model Enrollment {
-  id            String        @id @default(cuid())
-  userId        String
-  courseId      String
-  enrolledAt    DateTime      @default(now())
-  completedAt   DateTime?
-  progress      Json?
-  paymentStatus PaymentStatus @default(PENDING)
-  paymentId     String?
-  course        Course        @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id              String         @id @default(cuid())
+  userId          String
+  courseId        String
+  enrolledAt      DateTime       @default(now())
+  completedAt     DateTime?
+  progress        Json?
+  paymentStatus   PaymentStatus  @default(PENDING)
+  paymentId       String?
+  
+  // Delivery method
+  deliveryMethod  DeliveryMethod @default(SELF_PACED)
+  
+  course          Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, courseId])
   @@map("enrollments")
 }
 
+// Enhanced quiz attempts with detailed tracking
 model QuizAttempt {
   id           String     @id @default(cuid())
   userId       String
   lessonQuizId String
-  answers      Json
+  attemptNumber Int       @default(1)
+  
+  // Attempt data
+  answers      Json       // Student's answers
   score        Float
+  maxScore     Float
   passed       Boolean
-  timeSpent    Int?
-  completedAt  DateTime   @default(now())
+  timeSpent    Int?       // seconds
+  
+  // Detailed tracking
+  startedAt    DateTime   @default(now())
+  completedAt  DateTime?
+  
+  // Analytics
+  questionsCorrect Int    @default(0)
+  questionsTotal   Int    @default(0)
+  
   lessonQuiz   LessonQuiz @relation(fields: [lessonQuizId], references: [id], onDelete: Cascade)
   user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -317,4 +517,41 @@ enum QuestionType {
   FREE_RESPONSE
   ESSAY
   SHORT_ANSWER
+}
+
+enum QuizQuestionType {
+  MULTIPLE_CHOICE
+  TRUE_FALSE
+  FILL_IN_BLANK
+  SHORT_ANSWER
+  MATCHING
+  ORDERING
+}
+
+enum ContentType {
+  INTRO_VIDEO           // Opening video for the lesson
+  CONCEPT_EXPLANATION   // Text-based concept explanation
+  INTERACTIVE_DEMO      // Interactive demonstration
+  WORKED_EXAMPLE       // Step-by-step example
+  FORMULA_DERIVATION   // Mathematical derivations
+  REAL_WORLD_APPLICATION // Practical applications
+  SUMMARY              // Lesson wrap-up
+}
+
+enum ResourceType {
+  FORMULA_SHEET
+  REFERENCE_GUIDE
+  PRACTICE_WORKSHEET
+  EXTERNAL_ARTICLE
+  VIDEO_SUPPLEMENT
+  INTERACTIVE_SIMULATION
+  GRAPHING_TOOL
+  CALCULATOR_GUIDE
+  STUDY_GUIDE
+}
+
+enum DeliveryMethod {
+  SELF_PACED
+  PRIVATE_TUTOR
+  GROUP_CLASS
 }
