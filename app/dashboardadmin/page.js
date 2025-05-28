@@ -54,11 +54,15 @@ export default async function AdminDashboard() {
           include: {
             lessons: {
               include: {
-                lessonQuizzes: {
+                lessonQuiz: {  // Changed from lessonQuizzes to lessonQuiz
                   include: {
                     attempts: true
                   }
-                }
+                },
+                vocabulary: true,
+                contentBlocks: true,
+                examples: true,
+                resources: true
               }
             },
             unitExams: {
@@ -187,9 +191,13 @@ export default async function AdminDashboard() {
       return sum;
     }, 0);
 
-    // Calculate average quiz/exam scores
-    const allQuizScores = recentQuizAttempts.map(attempt => attempt.score);
-    const allExamScores = recentExamAttempts.map(attempt => attempt.score);
+    // Calculate average quiz/exam scores (handle null/undefined scores)
+    const allQuizScores = recentQuizAttempts
+      .map(attempt => attempt.score)
+      .filter(score => score != null);
+    const allExamScores = recentExamAttempts
+      .map(attempt => attempt.score)
+      .filter(score => score != null);
     const allScores = [...allQuizScores, ...allExamScores];
     const averageScore = allScores.length > 0 ? 
       allScores.reduce((sum, score) => sum + score, 0) / allScores.length : 0;
@@ -202,8 +210,8 @@ export default async function AdminDashboard() {
     // Students needing attention (low scores)
     const studentsNeedingAttention = students.filter(student => {
       const studentScores = [
-        ...student.quizAttempts.map(a => a.score),
-        ...student.examAttempts.map(a => a.score)
+        ...student.quizAttempts.map(a => a.score).filter(score => score != null),
+        ...student.examAttempts.map(a => a.score).filter(score => score != null)
       ];
       if (studentScores.length === 0) return false;
       const avgScore = studentScores.reduce((sum, score) => sum + score, 0) / studentScores.length;
@@ -416,7 +424,7 @@ export default async function AdminDashboard() {
                   <tbody>
                     {courses.map((course) => {
                       const totalLessons = course.units.reduce((sum, unit) => sum + unit.lessons.length, 0);
-                      const revenue = course.isFree ? 0 : (course.enrollments.filter(e => e.paymentStatus === 'PAID').length * course.price);
+                      const revenue = course.isFree ? 0 : (course.enrollments.filter(e => e.paymentStatus === 'PAID').length * (course.price || 0));
                       
                       return (
                         <tr key={course.id} className="hover">
@@ -436,7 +444,7 @@ export default async function AdminDashboard() {
                               {course.isFree ? (
                                 <div className="badge badge-info badge-sm">Free</div>
                               ) : (
-                                <div className="badge badge-accent badge-sm">{formatCurrency(course.price)}</div>
+                                <div className="badge badge-accent badge-sm">{formatCurrency(course.price || 0)}</div>
                               )}
                             </div>
                           </td>
@@ -537,7 +545,7 @@ export default async function AdminDashboard() {
                             <p className="font-medium">
                               {activity.user.name} {activity.description}
                             </p>
-                            {(activity.type === 'quiz' || activity.type === 'exam') && (
+                            {(activity.type === 'quiz' || activity.type === 'exam') && activity.score != null && (
                               <div className={`badge badge-sm ${
                                 activity.score >= 90 ? 'badge-success' :
                                 activity.score >= 80 ? 'badge-warning' :
@@ -554,6 +562,15 @@ export default async function AdminDashboard() {
                       </div>
                     ))}
                   </div>
+                  
+                  {recentActivity.length === 0 && (
+                    <div className="text-center py-8 text-base-content/50">
+                      <svg className="w-12 h-12 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <p>No recent activity</p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -616,8 +633,8 @@ export default async function AdminDashboard() {
                     <div className="space-y-4">
                       {studentsNeedingAttention.map((student) => {
                         const studentScores = [
-                          ...student.quizAttempts.map(a => a.score),
-                          ...student.examAttempts.map(a => a.score)
+                          ...student.quizAttempts.map(a => a.score).filter(score => score != null),
+                          ...student.examAttempts.map(a => a.score).filter(score => score != null)
                         ];
                         const avgScore = studentScores.reduce((sum, score) => sum + score, 0) / studentScores.length;
                         
@@ -662,6 +679,12 @@ export default async function AdminDashboard() {
                       </div>
                     ))}
                   </div>
+                  
+                  {popularCourses.length === 0 && (
+                    <div className="text-center py-4 text-base-content/50">
+                      <p className="text-sm">No course data yet</p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
