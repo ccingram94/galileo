@@ -36,39 +36,6 @@ export default function Tutoring() {
       ],
       primary: true,
       cta: "Book One-on-One Session"
-    },
-    {
-      id: "group",
-      title: "Small Group Classes",
-      price: 30,
-      description: "Collaborative learning environment with subject-specific peer interaction and structured curriculum progression at an affordable price point.",
-      features: [
-        "Small groups (4-6 students)",
-        "55-minute Zoom sessions",
-        "Subject-specific structured curriculum",
-        "Collaborative learning within each course",
-        "Affordable rates",
-        "Comprehensive unit exams",
-        "Peer discussion opportunities",
-        "Group problem-solving exercises"
-      ],
-      includes: [
-        "Fixed weekly schedule for consistent learning",
-        "Subject-specific digital course materials",
-        "Access to course-specific group chat for questions",
-        "Monthly progress assessments",
-        "Group review sessions before major exams"
-      ],
-      idealFor: [
-        "Students who thrive in collaborative environments",
-        "Those seeking an affordable option",
-        "Students who benefit from peer discussion",
-        "Those who prefer structured weekly schedules",
-        "Students wanting to compare approaches with peers",
-        "Students focusing on one specific AP course"
-      ],
-      primary: false,
-      cta: "Join Group Class"
     }
   ];
 
@@ -102,7 +69,7 @@ export default function Tutoring() {
     },
     {
       question: "What is your cancellation policy?",
-      answer: "Individual sessions can be rescheduled with 24 hours notice. Cancellations with less than 24 hours notice or missed sessions will be charged at the full session rate. For group classes, missed classes cannot be refunded but recordings are available for review."
+      answer: "Sessions can be rescheduled with 24 hours notice. Cancellations with less than 24 hours notice or missed sessions will be charged at the full session rate."
     },
     {
       question: "How do you differentiate instruction between Math and Physics courses?",
@@ -110,15 +77,11 @@ export default function Tutoring() {
     },
     {
       question: "Do you assign homework between sessions?",
-      answer: "Yes, appropriate practice is essential for mastering STEM concepts. I assign targeted homework based on each student's needs and the specific course requirements, typically requiring 1-2 hours between sessions. One-on-one students receive personalized assignments, while group class students follow a structured curriculum with some flexibility."
-    },
-    {
-      question: "Can I switch between individual and group tutoring?",
-      answer: "Yes, you can switch between formats depending on your needs and budget. Some students combine both approaches—using group sessions for general instruction and occasional one-on-one sessions for targeted help with challenging topics or exam preparation across multiple subjects."
+      answer: "Yes, appropriate practice is essential for mastering STEM concepts. I assign targeted homework based on each student's needs and the specific course requirements, typically requiring 1-2 hours between sessions. Each student receives personalized assignments tailored to their learning goals."
     },
     {
       question: "How do payments work?",
-      answer: "Individual sessions can be purchased as single sessions or in discounted packages of 5 or 10 sessions. Group classes are billed monthly for a set number of sessions. All payments are processed securely through Stripe, and invoices are provided for your records."
+      answer: "Individual sessions can be purchased as single sessions or in discounted packages of 5 or 10 sessions. All payments are processed securely through Stripe, and invoices are provided for your records."
     }
   ];
 
@@ -160,7 +123,7 @@ export default function Tutoring() {
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
-                  Compare Options
+                  View Details
                 </Link>
                 <Link href="/booking" className="btn btn-outline btn-lg hover:btn-primary">
                   Schedule Now
@@ -328,25 +291,25 @@ export default function Tutoring() {
       <section id="compare" className="py-20 bg-gradient-to-br from-base-200 via-base-200 to-base-300/50">
         <div className="container mx-auto max-w-7xl px-6">
           <div className="text-center mb-16">
-            <div className="badge badge-accent badge-lg mb-4">Choose Your Path</div>
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">Choose Your Tutoring Format</h2>
+            <div className="badge badge-accent badge-lg mb-4">Personalized Learning</div>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">Enroll in Courses with Individual Tutoring</h2>
             <p className="text-xl text-base-content/70 max-w-3xl mx-auto">
-              Select the learning approach that best fits your needs, learning style, and budget across our STEM curriculum.
+              Enroll in our comprehensive AP courses and receive exclusive one-on-one tutoring from the head teacher to master challenging STEM concepts.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-12 mb-16">
+          <div className="flex justify-center mb-16">
             {tutoringOptions.map((option) => (
-              <div key={option.id} className="group">
+              <div key={option.id} className="group max-w-2xl">
                 <div className={`card bg-base-100 shadow-2xl border border-base-300/30 h-full hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 ${option.primary ? 'ring-2 ring-primary/30' : ''}`}>
                   <div className="card-body p-8">
                     {option.primary && (
-                      <div className="badge badge-primary badge-lg mb-4 self-start">Most Popular</div>
+                      <div className="badge badge-primary badge-lg mb-4 self-start">Exclusive Offering</div>
                     )}
                     
                     <div className="flex items-center gap-4 mb-6">
                       <div className={`w-16 h-16 rounded-2xl ${option.primary ? 'bg-gradient-to-br from-primary/20 to-primary/10' : 'bg-gradient-to-br from-secondary/20 to-secondary/10'} flex items-center justify-center text-2xl`}>
-                        {option.primary ? '👨‍🏫' : '👥'}
+                        👨‍🏫
                       </div>
                       <div>
                         <h3 className="text-2xl font-bold">{option.title}</h3>
@@ -434,8 +397,7 @@ export default function Tutoring() {
                   <thead>
                     <tr>
                       <th className="text-base">Package</th>
-                      <th className="text-base">One-on-One Price</th>
-                      <th className="text-base">Group Class Price</th>
+                      <th className="text-base">Price</th>
                       <th className="text-base">Savings</th>
                     </tr>
                   </thead>
@@ -443,26 +405,17 @@ export default function Tutoring() {
                     <tr>
                       <td className="font-semibold">Single Session</td>
                       <td>$70 per session</td>
-                      <td>$30 per session</td>
                       <td>—</td>
                     </tr>
                     <tr>
                       <td className="font-semibold">5-Session Package</td>
                       <td>$325 <span className="text-sm text-base-content/60">($65 per session)</span></td>
-                      <td>$135 <span className="text-sm text-base-content/60">($27 per session)</span></td>
                       <td><span className="badge badge-success">~7% discount</span></td>
                     </tr>
                     <tr>
                       <td className="font-semibold">10-Session Package</td>
                       <td>$600 <span className="text-sm text-base-content/60">($60 per session)</span></td>
-                      <td>$250 <span className="text-sm text-base-content/60">($25 per session)</span></td>
                       <td><span className="badge badge-success">~15% discount</span></td>
-                    </tr>
-                    <tr>
-                      <td className="font-semibold">Monthly Group Subscription</td>
-                      <td>—</td>
-                      <td>$100 <span className="text-sm text-base-content/60">(4 sessions)</span></td>
-                      <td><span className="badge badge-success">~17% discount</span></td>
                     </tr>
                   </tbody>
                 </table>
@@ -589,7 +542,7 @@ export default function Tutoring() {
               <span className="block">STEM Understanding?</span>
             </h2>
             <p className="text-xl mb-12 text-primary-content/90 leading-relaxed max-w-3xl mx-auto">
-              Whether you choose one-on-one tutoring or our affordable group classes, I'm committed to helping you achieve excellence across all your STEM subjects.
+              With personalized one-on-one tutoring, I'm committed to helping you achieve excellence across all your STEM subjects.
             </p>
             <div className="flex flex-col lg:flex-row gap-6 justify-center items-center">
               <Link href="/contact" className="btn btn-secondary btn-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">

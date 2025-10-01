@@ -140,7 +140,7 @@ export default function TermsOfService() {
                     </div>
                   </div>
                   <p>
-                    Our services include one-on-one tutoring sessions, group classes, practice materials, progress tracking, and exam preparation resources.
+                    Our services include one-on-one tutoring sessions, practice materials, progress tracking, and exam preparation resources.
                   </p>
                 </div>
               </div>
@@ -214,7 +214,6 @@ export default function TermsOfService() {
                       <h4 className="font-semibold mb-2">Pricing Structure</h4>
                       <ul className="text-sm space-y-2">
                         <li>• One-on-One Tutoring: $70 per 55-minute session</li>
-                        <li>• Group Classes: $30 per 55-minute session</li>
                         <li>• Payment due before each session</li>
                         <li>• Package deals available for multiple sessions</li>
                       </ul>
