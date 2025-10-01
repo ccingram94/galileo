@@ -79,33 +79,33 @@ export default function Home() {
       <Hero />
       
       {/* Course Overview Section */}
-      <section className="py-20 px-6 bg-gradient-to-br from-base-100 via-base-200/30 to-primary/5">
-        {/* Background decorative elements */}
+      <section className="py-24 px-6 bg-gradient-to-br from-base-100 via-base-200/40 to-primary/8 relative overflow-hidden">
+        {/* Enhanced background decorative elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -right-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 -left-40 w-80 h-80 bg-secondary/5 rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/3 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/4 -right-40 w-96 h-96 bg-gradient-to-br from-primary/8 to-primary/4 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '5s' }}></div>
+          <div className="absolute bottom-1/4 -left-40 w-96 h-96 bg-gradient-to-tr from-secondary/8 to-secondary/4 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }}></div>
+          <div className="absolute top-1/3 right-1/3 w-80 h-80 bg-accent/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '7s', animationDelay: '2s' }}></div>
         </div>
 
         <div className="container mx-auto max-w-7xl relative z-10">
           {/* Header Section */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-20">
             {/* Top badge */}
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/15 to-primary/10 text-primary px-5 py-2.5 rounded-full text-sm font-semibold mb-6 border border-primary/20 shadow-md">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
               2025 Updated Curriculum
             </div>
 
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+            <h2 className="text-4xl lg:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
                 Math & Physics
               </span>{' '}
               <span className="text-base-content">Mastery</span>
             </h2>
             
-            <p className="text-lg lg:text-xl text-base-content/80 max-w-4xl mx-auto leading-relaxed mb-8">
+            <p className="text-xl lg:text-2xl text-base-content/75 max-w-4xl mx-auto leading-relaxed mb-10 font-light">
               Comprehensive curricula meticulously aligned with{' '}
               <span className="font-semibold text-primary">College Board standards</span>{' '}
               across{' '}
@@ -114,60 +114,60 @@ export default function Home() {
             </p>
 
             {/* Subject overview */}
-            <div className="flex flex-wrap justify-center gap-4 mb-8">
-              <div className="flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full border border-blue-200">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            <div className="flex flex-wrap justify-center gap-4 mb-10">
+              <div className="flex items-center gap-2 bg-gradient-to-r from-blue-50 to-blue-100/50 text-blue-700 px-5 py-3 rounded-full border-2 border-blue-200/50 shadow-md hover:shadow-lg transition-all duration-300">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                 </svg>
-                <span className="text-sm font-medium">Mathematics: Precalculus → Calculus BC</span>
+                <span className="text-sm font-semibold">Mathematics: Precalculus → Calculus BC</span>
               </div>
-              <div className="flex items-center gap-2 bg-green-50 text-green-700 px-4 py-2 rounded-full border border-green-200">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+              <div className="flex items-center gap-2 bg-gradient-to-r from-green-50 to-green-100/50 text-green-700 px-5 py-3 rounded-full border-2 border-green-200/50 shadow-md hover:shadow-lg transition-all duration-300">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                 </svg>
-                <span className="text-sm font-medium">Physics: Algebra-Based → Calculus-Based</span>
+                <span className="text-sm font-semibold">Physics: Algebra-Based → Calculus-Based</span>
               </div>
             </div>
 
-            {/* Stats row */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto mb-8">
-              <div className="bg-base-100 rounded-box border border-base-300 p-4 shadow-lg">
-                <div className="text-2xl font-bold text-primary">7</div>
-                <div className="text-xs text-base-content/70">AP Courses</div>
+            {/* Enhanced stats row */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto mb-10">
+              <div className="glass-effect rounded-xl border border-white/40 p-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div className="text-3xl font-bold text-primary">7</div>
+                <div className="text-xs text-base-content/70 font-medium mt-1">AP Courses</div>
               </div>
-              <div className="bg-base-100 rounded-box border border-base-300 p-4 shadow-lg">
-                <div className="text-2xl font-bold text-secondary">50+</div>
-                <div className="text-xs text-base-content/70">Total Units</div>
+              <div className="glass-effect rounded-xl border border-white/40 p-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div className="text-3xl font-bold text-secondary">50+</div>
+                <div className="text-xs text-base-content/70 font-medium mt-1">Total Units</div>
               </div>
-              <div className="bg-base-100 rounded-box border border-base-300 p-4 shadow-lg">
-                <div className="text-2xl font-bold text-accent">2000+</div>
-                <div className="text-xs text-base-content/70">Practice Problems</div>
+              <div className="glass-effect rounded-xl border border-white/40 p-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div className="text-3xl font-bold text-accent">2000+</div>
+                <div className="text-xs text-base-content/70 font-medium mt-1">Practice Problems</div>
               </div>
-              <div className="bg-base-100 rounded-box border border-base-300 p-4 shadow-lg">
-                <div className="text-2xl font-bold text-info">24/7</div>
-                <div className="text-xs text-base-content/70">Access</div>
+              <div className="glass-effect rounded-xl border border-white/40 p-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div className="text-3xl font-bold text-info">24/7</div>
+                <div className="text-xs text-base-content/70 font-medium mt-1">Access</div>
               </div>
             </div>
 
-            {/* Key features */}
-            <div className="flex flex-wrap justify-center gap-4 text-sm">
-              <div className="flex items-center gap-2 bg-success/10 text-success px-3 py-1 rounded-full">
+            {/* Enhanced key features */}
+            <div className="flex flex-wrap justify-center gap-3 text-sm">
+              <div className="flex items-center gap-2 bg-gradient-to-r from-success/15 to-success/10 text-success px-4 py-2 rounded-full border border-success/20 shadow-sm hover:shadow-md transition-all duration-300">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                College Board Aligned
+                <span className="font-semibold">College Board Aligned</span>
               </div>
-              <div className="flex items-center gap-2 bg-warning/10 text-warning px-3 py-1 rounded-full">
+              <div className="flex items-center gap-2 bg-gradient-to-r from-warning/15 to-warning/10 text-warning px-4 py-2 rounded-full border border-warning/20 shadow-sm hover:shadow-md transition-all duration-300">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
-                Updated for 2025
+                <span className="font-semibold">Updated for 2025</span>
               </div>
-              <div className="flex items-center gap-2 bg-info/10 text-info px-3 py-1 rounded-full">
+              <div className="flex items-center gap-2 bg-gradient-to-r from-info/15 to-info/10 text-info px-4 py-2 rounded-full border border-info/20 shadow-sm hover:shadow-md transition-all duration-300">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
-                STEM Excellence
+                <span className="font-semibold">STEM Excellence</span>
               </div>
             </div>
           </div>
@@ -197,84 +197,90 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Courses Overview Cards */}
-          <div className="mb-16">
+          {/* Courses Overview Cards - Enhanced design */}
+          <div className="mb-20">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Mathematics Card */}
-              <div className="card bg-gradient-to-br from-blue-50 to-blue-100 shadow-xl border border-blue-200">
-                <div className="card-body">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center">
-                      <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+              <div className="card bg-gradient-to-br from-blue-50 via-blue-100/50 to-blue-50 shadow-xl hover:shadow-2xl border-2 border-blue-200/50 transition-all duration-300 hover:-translate-y-1 group">
+                <div className="card-body p-8">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                       </svg>
                     </div>
                     <div>
-                      <h3 className="card-title text-primary">Mathematics Courses</h3>
-                      <p className="text-sm text-primary/70">3 Complete AP Programs</p>
+                      <h3 className="card-title text-2xl text-primary">Mathematics Courses</h3>
+                      <p className="text-sm text-primary/70 font-medium">3 Complete AP Programs</p>
                     </div>
                   </div>
                   
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 bg-white/60 rounded-lg">
-                      <span className="font-medium">AP Precalculus</span>
-                      <div className="badge badge-success badge-sm">Foundational</div>
+                    <div className="flex items-center justify-between p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+                      <span className="font-semibold">AP Precalculus</span>
+                      <div className="badge badge-success badge-md font-semibold shadow-sm">Foundational</div>
                     </div>
-                    <div className="flex items-center justify-between p-3 bg-white/60 rounded-lg">
-                      <span className="font-medium">AP Calculus AB</span>
-                      <div className="badge badge-warning badge-sm">Intermediate</div>
+                    <div className="flex items-center justify-between p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+                      <span className="font-semibold">AP Calculus AB</span>
+                      <div className="badge badge-warning badge-md font-semibold shadow-sm">Intermediate</div>
                     </div>
-                    <div className="flex items-center justify-between p-3 bg-white/60 rounded-lg">
-                      <span className="font-medium">AP Calculus BC</span>
-                      <div className="badge badge-error badge-sm">Advanced</div>
+                    <div className="flex items-center justify-between p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+                      <span className="font-semibold">AP Calculus BC</span>
+                      <div className="badge badge-error badge-md font-semibold shadow-sm">Advanced</div>
                     </div>
                   </div>
                   
-                  <div className="card-actions justify-end mt-6">
-                    <Link href="/courses#mathematics" className="btn btn-primary btn-sm">
+                  <div className="card-actions justify-end mt-8">
+                    <Link href="/courses#mathematics" className="btn btn-primary btn-md shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
                       Explore Math Courses
+                      <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                      </svg>
                     </Link>
                   </div>
                 </div>
               </div>
 
               {/* Physics Card */}
-              <div className="card bg-gradient-to-br from-green-50 to-green-100 shadow-xl border border-green-200">
-                <div className="card-body">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 bg-secondary/20 rounded-xl flex items-center justify-center">
-                      <svg className="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+              <div className="card bg-gradient-to-br from-green-50 via-green-100/50 to-green-50 shadow-xl hover:shadow-2xl border-2 border-green-200/50 transition-all duration-300 hover:-translate-y-1 group">
+                <div className="card-body p-8">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-16 h-16 bg-gradient-to-br from-secondary to-secondary/80 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                       </svg>
                     </div>
                     <div>
-                      <h3 className="card-title text-secondary">Physics Courses</h3>
-                      <p className="text-sm text-secondary/70">4 Complete AP Programs</p>
+                      <h3 className="card-title text-2xl text-secondary">Physics Courses</h3>
+                      <p className="text-sm text-secondary/70 font-medium">4 Complete AP Programs</p>
                     </div>
                   </div>
                   
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 bg-white/60 rounded-lg">
-                      <span className="font-medium">AP Physics 1</span>
-                      <div className="badge badge-success badge-sm">Foundational</div>
+                    <div className="flex items-center justify-between p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+                      <span className="font-semibold">AP Physics 1</span>
+                      <div className="badge badge-success badge-md font-semibold shadow-sm">Foundational</div>
                     </div>
-                    <div className="flex items-center justify-between p-3 bg-white/60 rounded-lg">
-                      <span className="font-medium">AP Physics 2</span>
-                      <div className="badge badge-warning badge-sm">Intermediate</div>
+                    <div className="flex items-center justify-between p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+                      <span className="font-semibold">AP Physics 2</span>
+                      <div className="badge badge-warning badge-md font-semibold shadow-sm">Intermediate</div>
                     </div>
-                    <div className="flex items-center justify-between p-3 bg-white/60 rounded-lg">
-                      <span className="font-medium">AP Physics C: Mechanics</span>
-                      <div className="badge badge-error badge-sm">Advanced</div>
+                    <div className="flex items-center justify-between p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+                      <span className="font-semibold">AP Physics C: Mechanics</span>
+                      <div className="badge badge-error badge-md font-semibold shadow-sm">Advanced</div>
                     </div>
-                    <div className="flex items-center justify-between p-3 bg-white/60 rounded-lg">
-                      <span className="font-medium">AP Physics C: Electricity and Magnetism</span>
-                      <div className="badge badge-error badge-sm">Advanced</div>
+                    <div className="flex items-center justify-between p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+                      <span className="font-semibold">AP Physics C: Electricity and Magnetism</span>
+                      <div className="badge badge-error badge-md font-semibold shadow-sm">Advanced</div>
                     </div>
                   </div>
                   
-                  <div className="card-actions justify-end mt-6">
-                    <Link href="/courses#physics" className="btn btn-secondary btn-sm">
+                  <div className="card-actions justify-end mt-8">
+                    <Link href="/courses#physics" className="btn btn-secondary btn-md shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
                       Explore Physics Courses
+                      <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                      </svg>
                     </Link>
                   </div>
                 </div>
@@ -282,89 +288,89 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Bottom Section */}
-          <div className="bg-gradient-to-r from-primary/5 via-secondary/3 to-accent/5 rounded-box p-8 lg:p-12 border border-base-300 shadow-xl">
-            <div className="text-center space-y-6">
-              {/* Achievement badges */}
-              <div className="flex flex-wrap justify-center gap-4 mb-6">
-                <div className="flex items-center gap-2 bg-base-100 border border-success/20 px-4 py-2 rounded-box shadow-lg">
-                  <div className="w-8 h-8 bg-success/10 rounded-btn flex items-center justify-center">
-                    <svg className="w-4 h-4 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          {/* Bottom Section - Enhanced with premium design */}
+          <div className="glass-effect rounded-3xl p-10 lg:p-16 border border-white/50 shadow-2xl hover:shadow-3xl transition-all duration-500">
+            <div className="text-center space-y-8">
+              {/* Enhanced achievement badges */}
+              <div className="flex flex-wrap justify-center gap-4 mb-8">
+                <div className="flex items-center gap-3 glass-effect border border-white/40 px-5 py-3 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                  <div className="w-10 h-10 bg-gradient-to-br from-success to-success/80 rounded-xl flex items-center justify-center shadow-md">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
-                  <span className="text-sm font-medium text-success">95% Pass Rate</span>
+                  <span className="text-sm font-semibold text-success">95% Pass Rate</span>
                 </div>
-                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-xl shadow-lg">
-                  <div className="w-8 h-8 bg-warning/20 rounded-lg flex items-center justify-center">
-                    <svg className="w-4 h-4 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                <div className="flex items-center gap-3 glass-effect border border-white/40 px-5 py-3 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                  <div className="w-10 h-10 bg-gradient-to-br from-warning to-warning/80 rounded-xl flex items-center justify-center shadow-md">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
                   </div>
-                  <span className="text-sm font-medium">4.9★ Student Rating</span>
+                  <span className="text-sm font-semibold">4.9★ Student Rating</span>
                 </div>
-                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-xl shadow-lg">
-                  <div className="w-8 h-8 bg-info/20 rounded-lg flex items-center justify-center">
-                    <svg className="w-4 h-4 text-info" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <div className="flex items-center gap-3 glass-effect border border-white/40 px-5 py-3 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                  <div className="w-10 h-10 bg-gradient-to-br from-info to-info/80 rounded-xl flex items-center justify-center shadow-md">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
-                  <span className="text-sm font-medium">7 STEM Subjects</span>
+                  <span className="text-sm font-semibold">7 STEM Subjects</span>
                 </div>
               </div>
 
-              {/* Main CTA */}
-              <div className="space-y-4">
-                <h3 className="text-2xl lg:text-3xl font-bold text-base-content">
+              {/* Enhanced Main CTA */}
+              <div className="space-y-6">
+                <h3 className="text-3xl lg:text-4xl font-bold text-base-content">
                   Ready to Master STEM?
                 </h3>
-                <p className="text-base-content/80 max-w-2xl mx-auto">
+                <p className="text-lg lg:text-xl text-base-content/75 max-w-2xl mx-auto leading-relaxed font-light">
                   Explore our complete Math and Physics curricula with interactive lessons, practice problems, 
                   and personalized feedback designed to maximize your AP exam success.
                 </p>
               </div>
 
-              {/* Action buttons */}
+              {/* Enhanced action buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
                 <Link 
                   href="/courses" 
-                  className="btn btn-primary btn-lg gap-3 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+                  className="btn btn-primary btn-lg gap-3 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all duration-300"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                   </svg>
                   Explore All Courses
-                  <div className="badge badge-accent badge-sm">Math + Physics</div>
+                  <div className="badge badge-accent badge-md font-semibold">Math + Physics</div>
                 </Link>
                 
                 <Link 
                   href="/demo" 
-                  className="btn btn-outline btn-secondary btn-lg gap-3 hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+                  className="btn btn-outline btn-secondary btn-lg gap-3 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 border-2"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h8m-6-3a3 3 0 106 0v2a3 3 0 11-6 0v-2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h8m-6-3a3 3 0 106 0v2a3 3 0 11-6 0v-2z" />
                   </svg>
                   Try Interactive Demo
                 </Link>
               </div>
 
-              {/* Trust indicators */}
-              <div className="flex flex-wrap justify-center items-center gap-6 pt-8 border-t border-white/20">
-                <div className="flex items-center gap-2 text-sm text-base-content/70">
-                  <div className="flex -space-x-1">
-                    <div className="w-6 h-6 bg-primary rounded-full border-2 border-base-100"></div>
-                    <div className="w-6 h-6 bg-secondary rounded-full border-2 border-base-100"></div>
-                    <div className="w-6 h-6 bg-accent rounded-full border-2 border-base-100"></div>
-                    <div className="w-6 h-6 bg-info rounded-full border-2 border-base-100"></div>
+              {/* Enhanced trust indicators */}
+              <div className="flex flex-wrap justify-center items-center gap-8 pt-10 border-t border-white/30">
+                <div className="flex items-center gap-3 text-sm text-base-content/70">
+                  <div className="flex -space-x-2">
+                    <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/80 rounded-full border-2 border-white shadow-md"></div>
+                    <div className="w-8 h-8 bg-gradient-to-br from-secondary to-secondary/80 rounded-full border-2 border-white shadow-md"></div>
+                    <div className="w-8 h-8 bg-gradient-to-br from-accent to-accent/80 rounded-full border-2 border-white shadow-md"></div>
+                    <div className="w-8 h-8 bg-gradient-to-br from-info to-info/80 rounded-full border-2 border-white shadow-md"></div>
                   </div>
-                  <span>Join 5000+ successful students</span>
+                  <span className="font-medium">Join 5000+ successful students</span>
                 </div>
                 
                 <div className="flex items-center gap-2 text-sm text-base-content/70">
-                  <svg className="w-4 h-4 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  <svg className="w-5 h-5 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
-                  <span>Money-back guarantee</span>
+                  <span className="font-medium">Money-back guarantee</span>
                 </div>
               </div>
             </div>
@@ -372,12 +378,13 @@ export default function Home() {
         </div>
       </section>
       
-      {/* Tutoring Options Section */}
-      <section className="py-16 px-6 bg-base-200">
+      {/* Tutoring Options Section - Enhanced styling */}
+      <section className="py-20 px-6 bg-gradient-to-br from-base-200 via-base-100 to-base-200/50">
         <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold">Tutoring Options</h2>
-            <p className="mt-4 text-lg max-w-3xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="badge badge-primary badge-lg mb-4 px-4 py-3 font-semibold shadow-md">Learning Formats</div>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-4">Tutoring Options</h2>
+            <p className="text-xl text-base-content/75 max-w-3xl mx-auto font-light">
               Choose the learning format that best fits your needs and budget.
             </p>
           </div>
@@ -393,18 +400,30 @@ export default function Home() {
       {/* About Instructor Section */}
       <AboutInstructor />
       
-      {/* Call to Action */}
-      <section className="py-16 px-6 bg-primary text-primary-content">
-        <div className="container mx-auto max-w-6xl text-center">
-          <h2 className="text-3xl font-bold mb-6">Ready to Excel in AP STEM?</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
+      {/* Call to Action - Enhanced design */}
+      <section className="py-20 px-6 bg-gradient-to-br from-primary via-primary to-secondary text-primary-content relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-white/5 via-transparent to-transparent"></div>
+        
+        <div className="container mx-auto max-w-6xl text-center relative z-10">
+          <div className="badge badge-lg bg-white/20 text-white border-white/30 mb-6 px-4 py-3 font-semibold shadow-lg">
+            Start Your Journey
+          </div>
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6">Ready to Excel in AP STEM?</h2>
+          <p className="text-xl lg:text-2xl mb-10 max-w-2xl mx-auto opacity-95 font-light leading-relaxed">
             Join our expert-led sessions and build the knowledge and confidence you need to succeed across Math and Physics.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="btn btn-secondary btn-lg">
+            <Link href="/contact" className="btn btn-secondary btn-lg shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all duration-300 border-0">
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
               Schedule a Free Consultation
             </Link>
-            <Link href="/booking" className="btn btn-outline btn-secondary btn-lg">
+            <Link href="/booking" className="btn btn-outline border-2 border-white/50 text-white hover:bg-white/20 btn-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
               Book Your First Session
             </Link>
           </div>
