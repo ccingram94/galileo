@@ -6,45 +6,78 @@
   prefersdark: false;
   color-scheme: light;
 
-  /* Main colors - More refined and professional */
-  --color-primary: oklch(45% 0.18 245);        /* Refined navy blue - more sophisticated */
-  --color-primary-content: oklch(98% 0.005 245);
-  --color-secondary: oklch(58% 0.15 280);      /* Muted purple - less vibrant, more professional */
-  --color-secondary-content: oklch(98% 0.005 280);
-  --color-accent: oklch(68% 0.16 180);           /* Professional teal */
-  --color-accent-content: oklch(12% 0.01 180);
+  /* Main colors - Enhanced professional palette for tutoring brand */
+  --color-primary: oklch(48% 0.22 245);        /* Rich navy blue - confident and academic */
+  --color-primary-content: oklch(99% 0.002 245);
+  --color-secondary: oklch(62% 0.18 275);      /* Vibrant purple - creative and engaging */
+  --color-secondary-content: oklch(99% 0.002 275);
+  --color-accent: oklch(65% 0.20 180);         /* Bright teal - fresh and modern */
+  --color-accent-content: oklch(10% 0.01 180);
 
-  /* Background and text colors - Enhanced contrast and readability */
-  --color-base-100: oklch(99% 0.003 240);      /* Pure white with subtle warmth */
-  --color-base-200: oklch(96% 0.008 240);      /* Softer gray for better hierarchy */
-  --color-base-300: oklch(88% 0.015 240);      /* More defined borders */
-  --color-base-content: oklch(20% 0.015 240);  /* Darker text for better readability */
+  /* Background and text colors - Premium feel with excellent contrast */
+  --color-base-100: oklch(100% 0 0);           /* Pure white for clean, professional look */
+  --color-base-200: oklch(97% 0.005 240);      /* Subtle gray for layering */
+  --color-base-300: oklch(90% 0.01 240);       /* Defined borders and dividers */
+  --color-base-content: oklch(18% 0.02 240);   /* Deep text for maximum readability */
 
-  /* Functional colors - More nuanced and professional */
-  --color-neutral: oklch(35% 0.02 250);        /* Darker neutral for better contrast */
-  --color-neutral-content: oklch(98% 0.005 250);
-  --color-info: oklch(55% 0.15 230);           /* More sophisticated blue */
-  --color-info-content: oklch(98% 0.005 230);
-  --color-success: oklch(60% 0.18 155);        /* Balanced green - not too bright */
-  --color-success-content: oklch(98% 0.005 155);
-  --color-warning: oklch(75% 0.18 85);         /* More refined amber */
-  --color-warning-content: oklch(18% 0.02 85);
-  --color-error: oklch(58% 0.22 20);           /* Serious but not alarming red */
-  --color-error-content: oklch(98% 0.005 20);
+  /* Functional colors - Refined and purposeful */
+  --color-neutral: oklch(32% 0.025 250);       /* Deep neutral for strong contrast */
+  --color-neutral-content: oklch(99% 0.002 250);
+  --color-info: oklch(58% 0.18 230);           /* Confident blue for informational content */
+  --color-info-content: oklch(99% 0.002 230);
+  --color-success: oklch(62% 0.20 155);        /* Positive green - encouraging */
+  --color-success-content: oklch(99% 0.002 155);
+  --color-warning: oklch(72% 0.20 80);         /* Warm amber - attention without alarm */
+  --color-warning-content: oklch(15% 0.02 80);
+  --color-error: oklch(60% 0.24 20);           /* Clear red - serious but not harsh */
+  --color-error-content: oklch(99% 0.002 20);
 
-  /* Border radius - Slightly more refined */
-  --radius-selector: 0.375rem;  /* 6px - sweet spot between modern and professional */
-  --radius-field: 0.375rem;     /* Consistent rounding */
-  --radius-box: 0.5rem;         /* 8px for cards and larger elements */
+  /* Border radius - Modern and approachable */
+  --radius-selector: 0.5rem;    /* 8px - friendly and modern */
+  --radius-field: 0.5rem;       /* Consistent, welcoming feel */
+  --radius-box: 0.75rem;        /* 12px - distinctive card design */
 
   /* Base sizes */
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
 
-  /* Border size - Refined for better definition */
+  /* Border size - Crisp definition */
   --border: 1px;
 
-  /* Effects - Professional polish */
-  --depth: 0.6;  /* Subtle shadows for clean depth */
-  --noise: 0;    /* Keep clean and minimal */
+  /* Effects - Elevated polish */
+  --depth: 0.75;  /* Enhanced shadows for depth */
+  --noise: 0;     /* Clean and professional */
+}
+
+/* Custom CSS enhancements for premium feel */
+@layer utilities {
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Enhanced hover states */
+  .hover-lift {
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Gradient text utility */
+  .gradient-text {
+    background: linear-gradient(135deg, oklch(48% 0.22 245), oklch(62% 0.18 275), oklch(65% 0.20 180));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Premium glass effect */
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
 }
