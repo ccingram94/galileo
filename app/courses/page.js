@@ -120,17 +120,14 @@ export default async function Courses() {
                 </span>
               </h1>
               <p className="text-xl text-base-content/80 leading-relaxed max-w-lg">
-                Master challenging STEM concepts with our comprehensive curricula designed to build deep conceptual understanding and problem-solving skills.
+                Master challenging STEM concepts with our comprehensive curricula designed to build deep conceptual understanding and problem-solving skills. Enroll in courses and receive individual one-on-one tutoring with the head teacher.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Link href="/booking/individual" className="btn btn-primary btn-lg shadow-lg">
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
-                  One-on-One Tutoring
-                </Link>
-                <Link href="/booking/group" className="btn btn-outline btn-lg hover:btn-primary">
-                  Group Classes
+                  Book Individual Tutoring
                 </Link>
               </div>
             </div>
@@ -582,13 +579,13 @@ export default async function Courses() {
       <section className="py-16 bg-base-200">
         <div className="container mx-auto max-w-6xl px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold">Tutoring Options</h2>
+            <h2 className="text-3xl font-bold">Individual Tutoring with Course Enrollment</h2>
             <p className="mt-4 text-lg max-w-3xl mx-auto">
-              Choose the learning format that fits your needs and budget.
+              Enroll in our courses and receive exclusive one-on-one tutoring with the head teacher for personalized instruction.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="flex justify-center max-w-2xl mx-auto">
             <div className="card bg-base-100 shadow-lg border-2 border-primary">
               <div className="card-body">
                 <h3 className="card-title text-2xl">One-on-One Tutoring</h3>
@@ -622,54 +619,17 @@ export default async function Courses() {
                     </svg>
                     <span>Detailed progress reports</span>
                   </li>
+                  <li className="flex items-start gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-success shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span>Direct access to head teacher</span>
+                  </li>
                 </ul>
                 
                 <div className="card-actions justify-end mt-6">
                   <Link href="/booking/individual" className="btn btn-primary w-full">
                     Book Individual Sessions
-                  </Link>
-                </div>
-              </div>
-            </div>
-            
-            <div className="card bg-base-100 shadow-lg">
-              <div className="card-body">
-                <h3 className="card-title text-2xl">Group Classes</h3>
-                <div className="mt-2">
-                  <span className="text-3xl font-bold">$30</span>
-                  <span className="text-base-content/70 ml-1">per hour</span>
-                </div>
-                
-                <ul className="mt-4 space-y-2">
-                  <li className="flex items-start gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-success shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    <span>Small groups (4-6 students)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-success shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    <span>Collaborative learning environment</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-success shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    <span>Structured curriculum</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-success shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    <span>Affordable rates</span>
-                  </li>
-                </ul>
-                
-                <div className="card-actions justify-end mt-6">
-                  <Link href="/booking/group" className="btn btn-outline btn-primary w-full">
-                    Join Group Classes
                   </Link>
                 </div>
               </div>

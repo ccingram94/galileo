@@ -56,20 +56,6 @@ const tutoringOptions = [
     ],
     primary: true,
     href: "/booking/individual"
-  },
-  {
-    title: "Group Classes",
-    price: 30,
-    features: [
-      "Small groups (4-6 students)",
-      "55-minute Zoom sessions",
-      "Structured curriculum",
-      "Collaborative learning",
-      "Affordable rates",
-      "Comprehensive unit exams"
-    ],
-    primary: false,
-    href: "/booking/group"
   }
 ];
 
@@ -382,14 +368,14 @@ export default function Home() {
       <section className="py-20 px-6 bg-gradient-to-br from-base-200 via-base-100 to-base-200/50">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <div className="badge badge-primary badge-lg mb-4 px-4 py-3 font-semibold shadow-md">Learning Formats</div>
-            <h2 className="text-4xl lg:text-5xl font-bold mb-4">Tutoring Options</h2>
+            <div className="badge badge-primary badge-lg mb-4 px-4 py-3 font-semibold shadow-md">Individual Tutoring</div>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-4">Personalized One-on-One Tutoring</h2>
             <p className="text-xl text-base-content/75 max-w-3xl mx-auto font-light">
-              Choose the learning format that best fits your needs and budget.
+              Experience the benefits of individualized instruction tailored to your specific needs and learning pace.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="flex justify-center max-w-2xl mx-auto">
             {tutoringOptions.map((option, index) => (
               <TutoringOption key={index} {...option} />
             ))}
