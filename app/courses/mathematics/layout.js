@@ -164,9 +164,6 @@ export default function MathematicsLayout({ children }) {
                 <Link href="/booking/individual" className="btn btn-primary btn-block btn-sm">
                   One-on-One Tutoring
                 </Link>
-                <Link href="/booking/group" className="btn btn-outline btn-primary btn-block btn-sm">
-                  Group Classes
-                </Link>
                 <Link href="/contact" className="btn btn-outline btn-secondary btn-block btn-sm">
                   Free Consultation
                 </Link>
