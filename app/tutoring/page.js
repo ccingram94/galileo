@@ -397,8 +397,7 @@ export default function Tutoring() {
                   <thead>
                     <tr>
                       <th className="text-base">Package</th>
-                      <th className="text-base">One-on-One Price</th>
-                      <th className="text-base">Group Class Price</th>
+                      <th className="text-base">Price</th>
                       <th className="text-base">Savings</th>
                     </tr>
                   </thead>
@@ -406,26 +405,17 @@ export default function Tutoring() {
                     <tr>
                       <td className="font-semibold">Single Session</td>
                       <td>$70 per session</td>
-                      <td>$30 per session</td>
                       <td>—</td>
                     </tr>
                     <tr>
                       <td className="font-semibold">5-Session Package</td>
                       <td>$325 <span className="text-sm text-base-content/60">($65 per session)</span></td>
-                      <td>$135 <span className="text-sm text-base-content/60">($27 per session)</span></td>
                       <td><span className="badge badge-success">~7% discount</span></td>
                     </tr>
                     <tr>
                       <td className="font-semibold">10-Session Package</td>
                       <td>$600 <span className="text-sm text-base-content/60">($60 per session)</span></td>
-                      <td>$250 <span className="text-sm text-base-content/60">($25 per session)</span></td>
                       <td><span className="badge badge-success">~15% discount</span></td>
-                    </tr>
-                    <tr>
-                      <td className="font-semibold">Monthly Group Subscription</td>
-                      <td>—</td>
-                      <td>$100 <span className="text-sm text-base-content/60">(4 sessions)</span></td>
-                      <td><span className="badge badge-success">~17% discount</span></td>
                     </tr>
                   </tbody>
                 </table>
@@ -552,7 +542,7 @@ export default function Tutoring() {
               <span className="block">STEM Understanding?</span>
             </h2>
             <p className="text-xl mb-12 text-primary-content/90 leading-relaxed max-w-3xl mx-auto">
-              Whether you choose one-on-one tutoring or our affordable group classes, I'm committed to helping you achieve excellence across all your STEM subjects.
+              With personalized one-on-one tutoring, I'm committed to helping you achieve excellence across all your STEM subjects.
             </p>
             <div className="flex flex-col lg:flex-row gap-6 justify-center items-center">
               <Link href="/contact" className="btn btn-secondary btn-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
